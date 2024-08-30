@@ -9,19 +9,23 @@
 /* Begin PBXBuildFile section */
 		35C82D702C82257D008D6047 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C82D6F2C82257D008D6047 /* AppDelegate.swift */; };
 		35C82D722C82257D008D6047 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C82D712C82257D008D6047 /* SceneDelegate.swift */; };
-		35C82D742C82257D008D6047 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C82D732C82257D008D6047 /* ViewController.swift */; };
+		35C82D742C82257D008D6047 /* MainTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C82D732C82257D008D6047 /* MainTabBar.swift */; };
 		35C82D792C82257E008D6047 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35C82D782C82257E008D6047 /* Assets.xcassets */; };
 		35C82D7C2C82257E008D6047 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 35C82D7B2C82257E008D6047 /* Base */; };
+		35C82D8A2C822C0C008D6047 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C82D892C822C0C008D6047 /* StatsViewController.swift */; };
+		35C82D8D2C822C27008D6047 /* TournamentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C82D8C2C822C27008D6047 /* TournamentsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		35C82D6C2C82257D008D6047 /* FortniteApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FortniteApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35C82D6F2C82257D008D6047 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		35C82D712C82257D008D6047 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		35C82D732C82257D008D6047 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		35C82D732C82257D008D6047 /* MainTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBar.swift; sourceTree = "<group>"; };
 		35C82D782C82257E008D6047 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		35C82D7B2C82257E008D6047 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		35C82D7D2C82257E008D6047 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		35C82D892C822C0C008D6047 /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
+		35C82D8C2C822C27008D6047 /* TournamentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,9 +58,9 @@
 		35C82D6E2C82257D008D6047 /* FortniteApp */ = {
 			isa = PBXGroup;
 			children = (
+				35C82D862C822B44008D6047 /* Scenes */,
 				35C82D852C8229C5008D6047 /* Resources */,
 				35C82D842C8229B2008D6047 /* Application */,
-				35C82D732C82257D008D6047 /* ViewController.swift */,
 				35C82D7D2C82257E008D6047 /* Info.plist */,
 			);
 			path = FortniteApp;
@@ -78,6 +82,40 @@
 				35C82D7A2C82257E008D6047 /* LaunchScreen.storyboard */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		35C82D862C822B44008D6047 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				35C82D8B2C822C12008D6047 /* Tournaments */,
+				35C82D882C822BFC008D6047 /* Stats */,
+				35C82D872C822B49008D6047 /* MainTabBar */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		35C82D872C822B49008D6047 /* MainTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				35C82D732C82257D008D6047 /* MainTabBar.swift */,
+			);
+			path = MainTabBar;
+			sourceTree = "<group>";
+		};
+		35C82D882C822BFC008D6047 /* Stats */ = {
+			isa = PBXGroup;
+			children = (
+				35C82D892C822C0C008D6047 /* StatsViewController.swift */,
+			);
+			path = Stats;
+			sourceTree = "<group>";
+		};
+		35C82D8B2C822C12008D6047 /* Tournaments */ = {
+			isa = PBXGroup;
+			children = (
+				35C82D8C2C822C27008D6047 /* TournamentsViewController.swift */,
+			);
+			path = Tournaments;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -150,8 +188,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				35C82D742C82257D008D6047 /* ViewController.swift in Sources */,
+				35C82D8D2C822C27008D6047 /* TournamentsViewController.swift in Sources */,
+				35C82D742C82257D008D6047 /* MainTabBar.swift in Sources */,
 				35C82D702C82257D008D6047 /* AppDelegate.swift in Sources */,
+				35C82D8A2C822C0C008D6047 /* StatsViewController.swift in Sources */,
 				35C82D722C82257D008D6047 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
