@@ -54,14 +54,30 @@
 		35C82D6E2C82257D008D6047 /* FortniteApp */ = {
 			isa = PBXGroup;
 			children = (
-				35C82D6F2C82257D008D6047 /* AppDelegate.swift */,
-				35C82D712C82257D008D6047 /* SceneDelegate.swift */,
+				35C82D852C8229C5008D6047 /* Resources */,
+				35C82D842C8229B2008D6047 /* Application */,
 				35C82D732C82257D008D6047 /* ViewController.swift */,
-				35C82D782C82257E008D6047 /* Assets.xcassets */,
-				35C82D7A2C82257E008D6047 /* LaunchScreen.storyboard */,
 				35C82D7D2C82257E008D6047 /* Info.plist */,
 			);
 			path = FortniteApp;
+			sourceTree = "<group>";
+		};
+		35C82D842C8229B2008D6047 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				35C82D6F2C82257D008D6047 /* AppDelegate.swift */,
+				35C82D712C82257D008D6047 /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		35C82D852C8229C5008D6047 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				35C82D782C82257E008D6047 /* Assets.xcassets */,
+				35C82D7A2C82257E008D6047 /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
