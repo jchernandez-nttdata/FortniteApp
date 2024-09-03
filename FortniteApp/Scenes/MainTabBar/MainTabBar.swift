@@ -16,7 +16,7 @@ final class MainTabBarController: UITabBarController {
     
     private func setUpTabBar() {
         let tournamentsVC = TournamentsViewController()
-        let statsVC = StatsViewController()
+        let statsVC = StatsRouter.createModule()
         
         tournamentsVC.navigationItem.largeTitleDisplayMode = .automatic
         statsVC.navigationItem.largeTitleDisplayMode = .automatic

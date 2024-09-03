@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol StatsView: AnyObject {
+    
+}
+
 final class StatsViewController: UIViewController {
+    
+    var presenter: StatsPresenterProtocol!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,4 +22,8 @@ final class StatsViewController: UIViewController {
         title = "Stats"
     }
 
+}
+
+extension StatsViewController: StatsView {
+    
 }
