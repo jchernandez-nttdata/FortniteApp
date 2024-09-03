@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol TournamentsView: AnyObject {
+    
+}
+
 final class TournamentsViewController: UIViewController {
+    
+    var presenter: TournamentsPresenterProtocol!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,4 +22,8 @@ final class TournamentsViewController: UIViewController {
         title = "Tournaments"
     }
 
+}
+
+extension TournamentsViewController: TournamentsView {
+    
 }
