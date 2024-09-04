@@ -9,7 +9,7 @@ import Foundation
 
 /// A protocol defining the methods for making network requests.
 protocol NetworkingManagerProtocol {
-
+    
     /// Makes a network request and decodes the response data into the specified type asynchronously.
     /// - Parameter request: The `Request` object containing the endpoint, HTTP method, and query parameters.
     /// - Returns: The decoded data of type `T`.
@@ -30,13 +30,19 @@ final class NetworkingManager: NetworkingManagerProtocol {
             throw NetworkingError.invalidURL
         }
         
-        let (data, response) = try await urlSession.data(for: request)
-        
-        if let responseError = self.isValidResponse(response: response) {
-            throw responseError
+        do {
+            let (data, response) = try await urlSession.data(for: request)
+            
+            if let responseError = self.isValidResponse(response: response) {
+                throw responseError
+            }
+            
+            return try self.decodeFrom(data)
+        } catch let error as NetworkingError {
+            throw error
+        } catch {
+            throw NetworkingError.serverError(description: error.localizedDescription)
         }
-        
-        return try self.decodeFrom(data)
         
     }
     
@@ -50,7 +56,13 @@ final class NetworkingManager: NetworkingManagerProtocol {
         dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         jsonDecoder.dateDecodingStrategy = .formatted(dateFormatter)
         
-        return try jsonDecoder.decode(T.self, from: data)
+        do {
+            let decodedData: T = try jsonDecoder.decode(T.self, from: data)
+            return decodedData
+        } catch {
+            throw NetworkingError.decodeFailure
+        }
+        
     }
     
     private func isValidResponse(response: URLResponse?) -> Error? {

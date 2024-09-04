@@ -13,4 +13,5 @@ enum NetworkingError: Error {
     case requestFailed(statusCode: Int)
     case decodeFailure
     case invalidResponse
+    case serverError(description: String)
 }
