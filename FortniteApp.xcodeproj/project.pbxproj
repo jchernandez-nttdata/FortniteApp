@@ -21,6 +21,8 @@
 		3548FE262C87B0DD00057FE8 /* EventsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3548FE252C87B0DD00057FE8 /* EventsResponse.swift */; };
 		3548FE282C87B9E600057FE8 /* EventWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3548FE272C87B9E600057FE8 /* EventWindow.swift */; };
 		3548FE2E2C87FB3E00057FE8 /* RegionPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3548FE2D2C87FB3E00057FE8 /* RegionPicker.swift */; };
+		35C375BE2C88F7DE004544FB /* TournamentsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C375BD2C88F7DE004544FB /* TournamentsRepository.swift */; };
+		35C375C02C88F837004544FB /* Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C375BF2C88F837004544FB /* Region.swift */; };
 		35C82D702C82257D008D6047 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C82D6F2C82257D008D6047 /* AppDelegate.swift */; };
 		35C82D722C82257D008D6047 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C82D712C82257D008D6047 /* SceneDelegate.swift */; };
 		35C82D742C82257D008D6047 /* MainTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C82D732C82257D008D6047 /* MainTabBar.swift */; };
@@ -45,6 +47,8 @@
 		3548FE252C87B0DD00057FE8 /* EventsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsResponse.swift; sourceTree = "<group>"; };
 		3548FE272C87B9E600057FE8 /* EventWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventWindow.swift; sourceTree = "<group>"; };
 		3548FE2D2C87FB3E00057FE8 /* RegionPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionPicker.swift; sourceTree = "<group>"; };
+		35C375BD2C88F7DE004544FB /* TournamentsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentsRepository.swift; sourceTree = "<group>"; };
+		35C375BF2C88F837004544FB /* Region.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Region.swift; sourceTree = "<group>"; };
 		35C82D6C2C82257D008D6047 /* FortniteApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FortniteApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35C82D6F2C82257D008D6047 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		35C82D712C82257D008D6047 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -89,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				3548FE0C2C877EAB00057FE8 /* HttpMethod.swift */,
+				35C375BF2C88F837004544FB /* Region.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -138,6 +143,7 @@
 		35C375BB2C88B053004544FB /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				35C375BD2C88F7DE004544FB /* TournamentsRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -324,9 +330,11 @@
 				3548FE0F2C877F8C00057FE8 /* APIConstants.swift in Sources */,
 				3548FE1B2C879D5800057FE8 /* StatsInteractor.swift in Sources */,
 				3548FE0A2C877D3400057FE8 /* NetworkingManager.swift in Sources */,
+				35C375BE2C88F7DE004544FB /* TournamentsRepository.swift in Sources */,
 				3548FE192C879D5200057FE8 /* StatsPresenter.swift in Sources */,
 				35C82D8A2C822C0C008D6047 /* StatsViewController.swift in Sources */,
 				3548FE262C87B0DD00057FE8 /* EventsResponse.swift in Sources */,
+				35C375C02C88F837004544FB /* Region.swift in Sources */,
 				3548FE142C8782A000057FE8 /* Request.swift in Sources */,
 				35C82D722C82257D008D6047 /* SceneDelegate.swift in Sources */,
 			);

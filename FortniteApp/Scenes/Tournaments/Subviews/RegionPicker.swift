@@ -9,8 +9,8 @@ import UIKit
 
 class RegionPicker: UIView {
     
-    private let regions = ["EU", "NAE", "NAW", "NAC", "ASIA", "BR", "ME", "OCE"]
-    var onRegionSelected: ((String) -> ())?
+    private let regions: [Region] = Region.allCases
+    var onRegionSelected: ((Region) -> ())?
     
     private let textField : UITextField = {
         let textField = UITextField()
@@ -68,8 +68,8 @@ class RegionPicker: UIView {
     }
     
     private func setInitialValue() {
-        textField.text = "NAC"
-        if let initialIndex = regions.firstIndex(of: "NAC") {
+        textField.text = Region.NAC.rawValue
+        if let initialIndex = regions.firstIndex(of: Region.NAC) {
             pickerView.selectRow(initialIndex, inComponent: 0, animated: false)
         }
     }
@@ -80,8 +80,10 @@ class RegionPicker: UIView {
         onRegionSelected?(selectedRegion)
     }
     
-    func getSelectedRegion() -> String? {
-        return textField.text
+    func getSelectedRegion() -> Region? {
+        return regions.first { region in
+            region.rawValue == textField.text
+        }
     }
 }
 
@@ -95,10 +97,10 @@ extension RegionPicker: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return regions[row]
+        return regions[row].rawValue
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        textField.text = regions[row]
+        textField.text = regions[row].rawValue
     }
 }
