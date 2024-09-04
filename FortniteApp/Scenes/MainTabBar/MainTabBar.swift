@@ -15,6 +15,9 @@ final class MainTabBarController: UITabBarController {
     }
     
     private func setUpTabBar() {
+        
+        UITabBar.appearance().unselectedItemTintColor = .gray
+        
         let tournamentsVC = TournamentsRouter.createModule()
         let statsVC = StatsRouter.createModule()
         
