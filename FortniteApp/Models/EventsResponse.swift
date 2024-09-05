@@ -31,7 +31,7 @@ struct Event: Decodable {
 
 extension Event {
     var title: String {
-        return nameLine1 + nameLine2
+        return nameLine1 + " " + nameLine2
     }
     
     var sortedWindows: [EventWindow] {

@@ -23,6 +23,11 @@
 		3548FE2E2C87FB3E00057FE8 /* RegionPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3548FE2D2C87FB3E00057FE8 /* RegionPicker.swift */; };
 		35C375BE2C88F7DE004544FB /* TournamentsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C375BD2C88F7DE004544FB /* TournamentsRepository.swift */; };
 		35C375C02C88F837004544FB /* Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C375BF2C88F837004544FB /* Region.swift */; };
+		35C375C42C8933A5004544FB /* TournamentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C375C32C8933A5004544FB /* TournamentCollectionViewCell.swift */; };
+		35C375C62C893C62004544FB /* TournamentsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C375C52C893C62004544FB /* TournamentsSection.swift */; };
+		35C375C82C894A55004544FB /* SectionHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C375C72C894A55004544FB /* SectionHeaderCollectionReusableView.swift */; };
+		35C375CB2C895169004544FB /* NetworkImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C375CA2C895169004544FB /* NetworkImageHelper.swift */; };
+		35C375CD2C8952C4004544FB /* ImageCacheError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C375CC2C8952C4004544FB /* ImageCacheError.swift */; };
 		35C82D702C82257D008D6047 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C82D6F2C82257D008D6047 /* AppDelegate.swift */; };
 		35C82D722C82257D008D6047 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C82D712C82257D008D6047 /* SceneDelegate.swift */; };
 		35C82D742C82257D008D6047 /* MainTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C82D732C82257D008D6047 /* MainTabBar.swift */; };
@@ -49,6 +54,11 @@
 		3548FE2D2C87FB3E00057FE8 /* RegionPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionPicker.swift; sourceTree = "<group>"; };
 		35C375BD2C88F7DE004544FB /* TournamentsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentsRepository.swift; sourceTree = "<group>"; };
 		35C375BF2C88F837004544FB /* Region.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Region.swift; sourceTree = "<group>"; };
+		35C375C32C8933A5004544FB /* TournamentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentCollectionViewCell.swift; sourceTree = "<group>"; };
+		35C375C52C893C62004544FB /* TournamentsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentsSection.swift; sourceTree = "<group>"; };
+		35C375C72C894A55004544FB /* SectionHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		35C375CA2C895169004544FB /* NetworkImageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImageHelper.swift; sourceTree = "<group>"; };
+		35C375CC2C8952C4004544FB /* ImageCacheError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheError.swift; sourceTree = "<group>"; };
 		35C82D6C2C82257D008D6047 /* FortniteApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FortniteApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35C82D6F2C82257D008D6047 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		35C82D712C82257D008D6047 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -82,6 +92,7 @@
 		3548FE0B2C877E9B00057FE8 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				35C375C92C895142004544FB /* Helpers */,
 				3548FE152C87849700057FE8 /* Errors */,
 				3548FE112C877FA700057FE8 /* Constants */,
 				3548FE102C877F9400057FE8 /* Enums */,
@@ -94,6 +105,7 @@
 			children = (
 				3548FE0C2C877EAB00057FE8 /* HttpMethod.swift */,
 				35C375BF2C88F837004544FB /* Region.swift */,
+				35C375C52C893C62004544FB /* TournamentsSection.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -119,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				3548FE162C8784A000057FE8 /* NetworkingError.swift */,
+				35C375CC2C8952C4004544FB /* ImageCacheError.swift */,
 			);
 			path = Errors;
 			sourceTree = "<group>";
@@ -152,8 +165,18 @@
 			isa = PBXGroup;
 			children = (
 				3548FE2D2C87FB3E00057FE8 /* RegionPicker.swift */,
+				35C375C32C8933A5004544FB /* TournamentCollectionViewCell.swift */,
+				35C375C72C894A55004544FB /* SectionHeaderCollectionReusableView.swift */,
 			);
 			path = Subviews;
+			sourceTree = "<group>";
+		};
+		35C375C92C895142004544FB /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				35C375CA2C895169004544FB /* NetworkImageHelper.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		35C82D632C82257D008D6047 = {
@@ -325,14 +348,19 @@
 				3548FE1F2C87A66C00057FE8 /* TournamentsPresenter.swift in Sources */,
 				35C82D702C82257D008D6047 /* AppDelegate.swift in Sources */,
 				3548FE212C87A67500057FE8 /* TournamentsInteractor.swift in Sources */,
+				35C375CD2C8952C4004544FB /* ImageCacheError.swift in Sources */,
 				3548FE0D2C877EAB00057FE8 /* HttpMethod.swift in Sources */,
 				3548FE172C8784A000057FE8 /* NetworkingError.swift in Sources */,
 				3548FE0F2C877F8C00057FE8 /* APIConstants.swift in Sources */,
+				35C375C82C894A55004544FB /* SectionHeaderCollectionReusableView.swift in Sources */,
 				3548FE1B2C879D5800057FE8 /* StatsInteractor.swift in Sources */,
 				3548FE0A2C877D3400057FE8 /* NetworkingManager.swift in Sources */,
 				35C375BE2C88F7DE004544FB /* TournamentsRepository.swift in Sources */,
 				3548FE192C879D5200057FE8 /* StatsPresenter.swift in Sources */,
+				35C375C62C893C62004544FB /* TournamentsSection.swift in Sources */,
 				35C82D8A2C822C0C008D6047 /* StatsViewController.swift in Sources */,
+				35C375C42C8933A5004544FB /* TournamentCollectionViewCell.swift in Sources */,
+				35C375CB2C895169004544FB /* NetworkImageHelper.swift in Sources */,
 				3548FE262C87B0DD00057FE8 /* EventsResponse.swift in Sources */,
 				35C375C02C88F837004544FB /* Region.swift in Sources */,
 				3548FE142C8782A000057FE8 /* Request.swift in Sources */,
