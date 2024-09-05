@@ -8,7 +8,11 @@
 import Foundation
 
 protocol TournamentsPresenterProtocol {
+    var tournamentSections: [TournamentsSection] { get }
+    var eventsCount: (upcoming: Int, ended: Int) { get }
+    
     func handleViewDidLoad()
+    func getEventAt(_ index: Int, section: TournamentsSection) -> Event
 }
 
 final class TournamentsPresenter {
@@ -23,6 +27,24 @@ final class TournamentsPresenter {
 }
 
 extension TournamentsPresenter: TournamentsPresenterProtocol {
+    func getEventAt(_ index: Int, section: TournamentsSection) -> Event {
+        switch section {
+            
+        case .upcomingEvents:
+            return upcomingEvents[index]
+        case .endedEvents:
+            return endedEvents[index]
+        }
+    }
+    
+    var tournamentSections: [TournamentsSection] {
+        TournamentsSection.allCases
+    }
+    
+    var eventsCount: (upcoming: Int, ended: Int) {
+        (upcomingEvents.count, endedEvents.count)
+    }
+    
     func handleViewDidLoad() {
         // TODO: Handle loading
         Task {
@@ -34,7 +56,7 @@ extension TournamentsPresenter: TournamentsPresenterProtocol {
                 let (upcomingEvents, endedEvents) = handleEvents(events: events)
                 self.upcomingEvents = upcomingEvents
                 self.endedEvents = endedEvents
-                print(upcomingEvents)
+                view.reloadCollectionView()
                 
             } catch {
                 print(error)

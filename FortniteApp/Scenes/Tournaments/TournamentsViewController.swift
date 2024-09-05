@@ -8,22 +8,183 @@
 import UIKit
 
 protocol TournamentsView: AnyObject {
-    
+    func reloadCollectionView()
 }
 
 final class TournamentsViewController: UIViewController {
     
     var presenter: TournamentsPresenterProtocol!
-
+    
+    // MARK: UI Components
+    private let collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .white
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        collectionView.register(TournamentCollectionViewCell.self, forCellWithReuseIdentifier: TournamentCollectionViewCell.identifier)
+        collectionView.register(SectionHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionHeaderCollectionReusableView.identifier)
+        return collectionView
+    }()
+    
+    private let seasonLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Current season: Chapter 5 Season 4"
+        label.textColor = .black
+        return label
+    }()
+    
+    private let regionLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Region:"
+        label.textColor = .black
+        return label
+    }()
+    
+    private let regionPicker: RegionPicker = {
+        let picker = RegionPicker()
+        picker.translatesAutoresizingMaskIntoConstraints = false
+        return picker
+    }()
+    
+    private let regionStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.spacing = 10
+        return stackView
+    }()
+    
+    private let spacer: UIView = {
+        let spacer = UIView()
+        spacer.isUserInteractionEnabled = false
+        spacer.setContentHuggingPriority(.fittingSizeLevel, for: .horizontal)
+        spacer.setContentCompressionResistancePriority(.fittingSizeLevel, for: .horizontal)
+        return spacer
+    }()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setup()
+        presenter.handleViewDidLoad()
+    }
+    
+    private func setup() {
         view.backgroundColor = .white
         title = "Tournaments"
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+        view.addSubview(collectionView)
+        view.addSubview(regionStackView)
+        view.addSubview(seasonLabel)
+        
+        regionStackView.addArrangedSubview(regionLabel)
+        regionStackView.addArrangedSubview(regionPicker)
+        regionStackView.addArrangedSubview(spacer)
+        
+        regionPicker.onRegionSelected = onRegionSelected(region:)
+        
+        NSLayoutConstraint.activate([
+            seasonLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            seasonLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            seasonLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            
+            regionPicker.widthAnchor.constraint(equalToConstant: 70),
+            
+            regionStackView.topAnchor.constraint(equalTo: seasonLabel.bottomAnchor),
+            regionStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            regionStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            
+            collectionView.topAnchor.constraint(equalTo: regionStackView.bottomAnchor, constant: 20),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+        ])
     }
-
+    
+    private func onRegionSelected(region : Region) {
+        //TODO: Handle tournaments filter
+    }
+    
 }
 
 extension TournamentsViewController: TournamentsView {
+    func reloadCollectionView() {
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+            
+        }
+    }
+    
+    
+}
+
+extension TournamentsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        presenter.tournamentSections.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let section = presenter.tournamentSections[section]
+        switch section {
+        case .upcomingEvents:
+            return presenter.eventsCount.upcoming
+        case .endedEvents:
+            return presenter.eventsCount.ended
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        // All sections uses the same cell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TournamentCollectionViewCell.identifier, for: indexPath) as? TournamentCollectionViewCell
+        
+        let section = presenter.tournamentSections[indexPath.section]
+        switch section {
+        case .upcomingEvents:
+            let event = presenter.getEventAt(indexPath.row, section: .upcomingEvents)
+            cell?.setup(title: event.title, posterUrl: event.poster)
+            return cell ?? UICollectionViewCell()
+        case .endedEvents:
+            let event = presenter.getEventAt(indexPath.row, section: .upcomingEvents)
+            cell?.setup(title: event.title, posterUrl: event.poster)
+            return cell ?? UICollectionViewCell()
+        }
+        
+    }
+    
+    // Sets the tournament event cell size
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let bounds = UIScreen.main.bounds
+        let width = (bounds.width - 50) / 2
+        return CGSize(width: width, height: width * 1.4)
+    }
+    
+    
+    // Configure section header
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionView.elementKindSectionHeader {
+            let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SectionHeaderCollectionReusableView.identifier, for: indexPath) as? SectionHeaderCollectionReusableView
+            
+            let section = presenter.tournamentSections[indexPath.section]
+            sectionHeader?.setup(title: section.rawValue)
+            return sectionHeader ?? UICollectionViewCell()
+            
+        } else {
+            return UICollectionReusableView()
+        }
+    }
+    
+    // Section header size
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: 50)
+    }
     
 }
