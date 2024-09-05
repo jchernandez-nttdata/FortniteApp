@@ -31,7 +31,7 @@ struct Event: Decodable {
 
 extension Event {
     var title: String {
-        return nameLine1 + " " + nameLine2
+        return "\(nameLine1) \(nameLine2)"
     }
     
     var sortedWindows: [EventWindow] {
@@ -49,5 +49,22 @@ extension Event {
             window.beginTime > currentDate
         }
         
+    }
+    
+    var timeUntilDelta: TimeInterval? {
+        let currentDate = Date()
+        guard let currentOrNextWindowEvent else {
+            return nil
+        }
+        
+        return currentDate.distance(to: currentOrNextWindowEvent.beginTime)
+    }
+    
+    var formattedTimeUntil: String? {
+        guard let timeUntilDelta else {
+            return nil
+        }
+        
+        return DateHelper.formattedTimeUntilString(timeUntilDelta)
     }
 }

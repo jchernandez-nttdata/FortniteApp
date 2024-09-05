@@ -75,7 +75,7 @@ extension TournamentsPresenter: TournamentsPresenterProtocol {
             event.currentOrNextWindowEvent == nil
         }
         
-        return (upcomingEvents, endedEvents)
+        return (upcomingEvents.sorted { $0.timeUntilDelta! < $1.timeUntilDelta! }, endedEvents)
         
     }
     

@@ -19,9 +19,10 @@ final class TournamentsViewController: UIViewController {
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = 20
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .clear
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         collectionView.register(TournamentCollectionViewCell.self, forCellWithReuseIdentifier: TournamentCollectionViewCell.identifier)
@@ -150,11 +151,11 @@ extension TournamentsViewController: UICollectionViewDelegate, UICollectionViewD
         switch section {
         case .upcomingEvents:
             let event = presenter.getEventAt(indexPath.row, section: .upcomingEvents)
-            cell?.setup(title: event.title, posterUrl: event.poster)
+            cell?.setup(title: event.title, timeUntil: event.formattedTimeUntil, posterUrl: event.poster)
             return cell ?? UICollectionViewCell()
         case .endedEvents:
-            let event = presenter.getEventAt(indexPath.row, section: .upcomingEvents)
-            cell?.setup(title: event.title, posterUrl: event.poster)
+            let event = presenter.getEventAt(indexPath.row, section: .endedEvents)
+            cell?.setup(title: event.title, timeUntil: event.formattedTimeUntil, posterUrl: event.poster)
             return cell ?? UICollectionViewCell()
         }
         
@@ -163,7 +164,7 @@ extension TournamentsViewController: UICollectionViewDelegate, UICollectionViewD
     // Sets the tournament event cell size
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let bounds = UIScreen.main.bounds
-        let width = (bounds.width - 50) / 2
+        let width = (bounds.width - 30) / 2
         return CGSize(width: width, height: width * 1.4)
     }
     
