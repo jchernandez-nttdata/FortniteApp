@@ -31,7 +31,7 @@ final class TournamentsRepository: TournamentsRepositoryProtocol {
     /// - Parameter region: The region for which the tournaments will be fetched.
     /// - Returns: An array of `Event` model representing the tournaments.
     /// - Throws: An error if the network request fails or the data cannot be decoded.
-    func getTournaments(region: Region = .NAC) async throws -> [Event] {
+    func getTournaments(region: Region) async throws -> [Event] {
         let queryParams = [
             URLQueryItem(name: "season", value: "current"),
             URLQueryItem(name: "region", value: region.rawValue)
