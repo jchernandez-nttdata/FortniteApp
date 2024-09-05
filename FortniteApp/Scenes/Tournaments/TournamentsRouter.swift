@@ -13,7 +13,7 @@ protocol TournamentsRouterProtocol {
 
 final class TournamentsRouter {
     
-    var viewController: UIViewController!
+    unowned var viewController: UIViewController!
     
     static func createModule() -> UIViewController {
         let viewController = TournamentsViewController()

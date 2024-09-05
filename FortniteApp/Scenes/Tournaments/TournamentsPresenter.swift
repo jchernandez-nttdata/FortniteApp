@@ -17,7 +17,7 @@ protocol TournamentsPresenterProtocol {
 
 final class TournamentsPresenter {
     
-    weak var view: TournamentsView!
+    unowned var view: TournamentsView!
     var interactor: TournamentsInteractorProtocol!
     var router: TournamentsRouterProtocol!
     

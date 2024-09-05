@@ -13,7 +13,7 @@ protocol StatsRouterProtocol {
 
 final class StatsRouter {
     
-    var viewController: UIViewController!
+    unowned var viewController: UIViewController!
     
     static func createModule() -> UIViewController {
         let viewController = StatsViewController()

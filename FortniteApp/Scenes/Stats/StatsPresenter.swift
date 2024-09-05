@@ -13,7 +13,7 @@ protocol StatsPresenterProtocol {
 
 final class StatsPresenter {
     
-    weak var view: StatsView!
+    unowned var view: StatsView!
     var interactor: StatsInteractorProtocol!
     var router: StatsRouterProtocol!
     
