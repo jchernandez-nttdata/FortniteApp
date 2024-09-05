@@ -13,6 +13,7 @@ protocol TournamentsPresenterProtocol {
     
     func handleViewDidLoad()
     func getEventAt(_ index: Int, section: TournamentsSection) -> Event
+    func handleRegionChanged(region: Region)
 }
 
 final class TournamentsPresenter {
@@ -23,10 +24,19 @@ final class TournamentsPresenter {
     
     private var upcomingEvents: [Event] = []
     private var endedEvents: [Event] = []
+    private var currentRegion: Region = .NAC
     
 }
 
 extension TournamentsPresenter: TournamentsPresenterProtocol {
+    var tournamentSections: [TournamentsSection] {
+        TournamentsSection.allCases
+    }
+    
+    var eventsCount: (upcoming: Int, ended: Int) {
+        (upcomingEvents.count, endedEvents.count)
+    }
+    
     func getEventAt(_ index: Int, section: TournamentsSection) -> Event {
         switch section {
             
@@ -37,21 +47,28 @@ extension TournamentsPresenter: TournamentsPresenterProtocol {
         }
     }
     
-    var tournamentSections: [TournamentsSection] {
-        TournamentsSection.allCases
-    }
-    
-    var eventsCount: (upcoming: Int, ended: Int) {
-        (upcomingEvents.count, endedEvents.count)
-    }
-    
     func handleViewDidLoad() {
-        // TODO: Handle loading
+        loadTournaments(for: .NAC)
+    }
+    
+    func handleRegionChanged(region: Region) {
+        if currentRegion == region {
+            return
+        }
+        currentRegion = region
+        loadTournaments(for: region)
+    }
+    
+    // MARK: - Private methods
+    
+    private func loadTournaments(for region: Region) {
+        // TODO: show loading
         Task {
             do {
-                let events = try await interactor.getTournaments(region: .NAC)
+                let events = try await interactor.getTournaments(region: region)
                 if events.isEmpty {
                     //TODO: Handle empty case
+                    return
                 }
                 let (upcomingEvents, endedEvents) = handleEvents(events: events)
                 self.upcomingEvents = upcomingEvents

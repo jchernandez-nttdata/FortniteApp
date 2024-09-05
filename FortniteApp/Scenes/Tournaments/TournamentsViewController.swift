@@ -112,7 +112,7 @@ final class TournamentsViewController: UIViewController {
     }
     
     private func onRegionSelected(region : Region) {
-        //TODO: Handle tournaments filter
+        presenter.handleRegionChanged(region: region)
     }
     
 }
