@@ -1,0 +1,84 @@
+//
+//  TournamentCollectionViewCell.swift
+//  FortniteApp
+//
+//  Created by Juan Carlos Hernandez Castillo on 4/09/24.
+//
+
+import UIKit
+
+class TournamentCollectionViewCell: UICollectionViewCell {
+    static let identifier = "TournamentCollectionViewCell"
+    
+    private let posterImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.image = UIImage(named: "defaultEvent")
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        setup()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        setup()
+    }
+    
+    override func prepareForReuse() {
+        titleLabel.text = ""
+        posterImageView.image = UIImage(named: "defaultEvent")
+    }
+    
+    private func setup() {
+        contentView.addSubview(posterImageView)
+        contentView.addSubview(titleLabel)
+        
+        NSLayoutConstraint.activate([
+            posterImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            posterImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            posterImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            posterImageView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            
+            titleLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10),
+            titleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10),
+            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
+        ])
+    }
+    
+    func setup(title: String, posterUrl: String?) {
+        titleLabel.text = title
+        
+        // uses default image if posterURL is nil
+        if let posterUrl {
+            NetworkImageHelper.shared.getCacheImage(from: posterUrl) {[weak self] result in
+                switch result {
+                case .success(let image):
+                    DispatchQueue.main.async {
+                        self?.posterImageView.image = image
+                    }
+                case .failure(let error):
+                    // uses default image on failure
+                    break
+                }
+            }
+        }
+        
+    }
+    
+}
