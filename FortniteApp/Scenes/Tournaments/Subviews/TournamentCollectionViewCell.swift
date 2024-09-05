@@ -13,7 +13,7 @@ class TournamentCollectionViewCell: UICollectionViewCell {
     private let posterImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.image = UIImage(resource: .defaultEvent)
+        imageView.backgroundColor = .gray
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -52,8 +52,9 @@ class TournamentCollectionViewCell: UICollectionViewCell {
     }
     
     override func prepareForReuse() {
-        titleLabel.text = ""
-        posterImageView.image = UIImage(named: "defaultEvent")
+        titleLabel.text = nil
+        timeLabel.text = nil
+        posterImageView.image = nil
     }
     
     private func setup() {
@@ -91,7 +92,9 @@ class TournamentCollectionViewCell: UICollectionViewCell {
                     }
                 case .failure(_):
                     // uses default image on failure
-                    break
+                    DispatchQueue.main.async {
+                        self?.posterImageView.image = UIImage(resource: .defaultEvent)
+                    }
                 }
             }
         }
