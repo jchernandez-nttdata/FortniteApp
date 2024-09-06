@@ -17,13 +17,14 @@ final class MainTabBarController: UITabBarController {
     private func setUpTabBar() {
         
         UITabBar.appearance().unselectedItemTintColor = .gray
+        UITabBar.appearance().barTintColor = .white
         
         let tournamentsVC = TournamentsRouter.createModule()
-        let statsVC = StatsRouter.createModule()
+        let statsVC = StatsSearchRouter.createModule()
         
-        tournamentsVC.navigationItem.largeTitleDisplayMode = .automatic
-        statsVC.navigationItem.largeTitleDisplayMode = .automatic
-        
+        tournamentsVC.navigationItem.largeTitleDisplayMode = .always
+        statsVC.navigationItem.largeTitleDisplayMode = .always
+                
         let appearance = UINavigationBarAppearance()
         appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
         appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black]

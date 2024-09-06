@@ -7,19 +7,19 @@
 
 import UIKit
 
-protocol StatsRouterProtocol {
+protocol StatsSearchRouterProtocol {
     
 }
 
-final class StatsRouter {
+final class StatsSearchRouter {
     
     unowned var viewController: UIViewController!
     
     static func createModule() -> UIViewController {
-        let viewController = StatsViewController()
-        let presenter = StatsPresenter()
-        let router = StatsRouter()
-        let interactor = StatsInteractor()
+        let viewController = StatsSearchViewController()
+        let presenter = StatsSearchPresenter()
+        let router = StatsSearchRouter()
+        let interactor = StatsSearchInteractor()
         
         presenter.view = viewController
         presenter.router = router
@@ -31,6 +31,6 @@ final class StatsRouter {
     
 }
 
-extension StatsRouter: StatsRouterProtocol {
+extension StatsSearchRouter: StatsSearchRouterProtocol {
     
 }
