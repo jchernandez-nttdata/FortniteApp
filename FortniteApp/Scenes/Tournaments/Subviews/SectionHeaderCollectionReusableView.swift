@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 class SectionHeaderCollectionReusableView: UICollectionReusableView {
     static let identifier: String = "SectionHeaderCollectionReusableView"
@@ -23,6 +24,7 @@ class SectionHeaderCollectionReusableView: UICollectionReusableView {
         super.init(frame: frame)
         
         setup()
+        setupSkeleton()
     }
     
     private func setup() {
@@ -33,6 +35,11 @@ class SectionHeaderCollectionReusableView: UICollectionReusableView {
             label.rightAnchor.constraint(equalTo: self.rightAnchor)
         ])
         
+    }
+    
+    private func setupSkeleton() {
+        isSkeletonable = true
+        label.isSkeletonable = true
     }
     
     required init?(coder: NSCoder) {

@@ -12,6 +12,7 @@
 		350BF41D2C8A6C870028891C /* TournamentDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF41C2C8A6C870028891C /* TournamentDetailPresenter.swift */; };
 		350BF41F2C8A6C9D0028891C /* TournamentDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF41E2C8A6C9D0028891C /* TournamentDetailRouter.swift */; };
 		350BF4212C8A6CA70028891C /* TournamentDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF4202C8A6CA70028891C /* TournamentDetailInteractor.swift */; };
+		350BF4242C8A83FC0028891C /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 350BF4232C8A83FC0028891C /* SkeletonView */; };
 		3548FE0A2C877D3400057FE8 /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3548FE092C877D3400057FE8 /* NetworkingManager.swift */; };
 		3548FE0D2C877EAB00057FE8 /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3548FE0C2C877EAB00057FE8 /* HttpMethod.swift */; };
 		3548FE0F2C877F8C00057FE8 /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3548FE0E2C877F8C00057FE8 /* APIConstants.swift */; };
@@ -85,6 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				350BF4242C8A83FC0028891C /* SkeletonView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,6 +310,9 @@
 			dependencies = (
 			);
 			name = FortniteApp;
+			packageProductDependencies = (
+				350BF4232C8A83FC0028891C /* SkeletonView */,
+			);
 			productName = FortniteApp;
 			productReference = 35C82D6C2C82257D008D6047 /* FortniteApp.app */;
 			productType = "com.apple.product-type.application";
@@ -336,6 +341,9 @@
 				Base,
 			);
 			mainGroup = 35C82D632C82257D008D6047;
+			packageReferences = (
+				350BF4222C8A83FC0028891C /* XCRemoteSwiftPackageReference "SkeletonView" */,
+			);
 			productRefGroup = 35C82D6D2C82257D008D6047 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -615,6 +623,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		350BF4222C8A83FC0028891C /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
+			requirement = {
+				kind = exactVersion;
+				version = 1.31.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		350BF4232C8A83FC0028891C /* SkeletonView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 350BF4222C8A83FC0028891C /* XCRemoteSwiftPackageReference "SkeletonView" */;
+			productName = SkeletonView;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 35C82D642C82257D008D6047 /* Project object */;
 }

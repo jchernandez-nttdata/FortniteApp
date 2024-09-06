@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 class TournamentCollectionViewCell: UICollectionViewCell {
     static let identifier = "TournamentCollectionViewCell"
@@ -13,7 +14,6 @@ class TournamentCollectionViewCell: UICollectionViewCell {
     private let posterImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.backgroundColor = .gray
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -40,6 +40,7 @@ class TournamentCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         setup()
+        setupSkeleton()
     }
     
     required init?(coder: NSCoder) {
@@ -49,6 +50,7 @@ class TournamentCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         setup()
+        setupSkeleton()
     }
     
     override func prepareForReuse() {
@@ -78,22 +80,30 @@ class TournamentCollectionViewCell: UICollectionViewCell {
         ])
     }
     
+    private func setupSkeleton() {
+        isSkeletonable = true
+        posterImageView.isSkeletonable = true
+    }
+    
     func setup(title: String, timeUntil: String?, posterUrl: String?) {
         titleLabel.text = title
         timeLabel.text = timeUntil
                 
         // uses default image if posterURL is nil
+        posterImageView.showAnimatedSkeleton(usingColor: .lightGray)
         if let posterUrl {
             NetworkImageHelper.shared.getCacheImage(from: posterUrl) {[weak self] result in
                 switch result {
                 case .success(let image):
                     DispatchQueue.main.async {
                         self?.posterImageView.image = image
+                        self?.posterImageView.hideSkeleton()
                     }
                 case .failure(_):
                     // uses default image on failure
                     DispatchQueue.main.async {
                         self?.posterImageView.image = UIImage(resource: .defaultEvent)
+                        self?.posterImageView.hideSkeleton()
                     }
                 }
             }

@@ -6,9 +6,12 @@
 //
 
 import UIKit
+import SkeletonView
 
 protocol TournamentsView: AnyObject {
     func reloadCollectionView()
+    func showLoading()
+    func dismissLoading()
 }
 
 final class TournamentsViewController: UIViewController {
@@ -73,6 +76,7 @@ final class TournamentsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        setupSkeleton()
         presenter.handleViewDidLoad()
     }
     
@@ -111,6 +115,10 @@ final class TournamentsViewController: UIViewController {
         ])
     }
     
+    private func setupSkeleton() {
+        collectionView.isSkeletonable = true
+    }
+    
     private func onRegionSelected(region : Region) {
         presenter.handleRegionChanged(region: region)
     }
@@ -121,10 +129,20 @@ extension TournamentsViewController: TournamentsView {
     func reloadCollectionView() {
         DispatchQueue.main.async {
             self.collectionView.reloadData()
-            
         }
     }
     
+    func showLoading() {
+        DispatchQueue.main.async {
+            self.collectionView.showAnimatedSkeleton(usingColor: .lightGray)
+        }
+    }
+    
+    func dismissLoading() {
+        DispatchQueue.main.async {
+            self.collectionView.hideSkeleton()
+        }
+    }
     
 }
 
@@ -191,6 +209,25 @@ extension TournamentsViewController: UICollectionViewDelegate, UICollectionViewD
     // Section header size
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: 50)
+    }
+    
+}
+
+extension TournamentsViewController: SkeletonCollectionViewDataSource, SkeletonCollectionViewDelegate {
+    func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> SkeletonView.ReusableCellIdentifier {
+        TournamentCollectionViewCell.identifier
+    }
+    
+    func collectionSkeletonView(_ skeletonView: UICollectionView, supplementaryViewIdentifierOfKind: String, at indexPath: IndexPath) -> ReusableCellIdentifier? {
+        SectionHeaderCollectionReusableView.identifier
+    }
+    
+    func collectionSkeletonView(_ skeletonView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func numSections(in collectionSkeletonView: UICollectionView) -> Int {
+        2
     }
     
 }

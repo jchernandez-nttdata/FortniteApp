@@ -74,7 +74,7 @@ extension TournamentsPresenter: TournamentsPresenterProtocol {
     // MARK: - Private methods
     
     private func loadTournaments(for region: Region) {
-        // TODO: show loading
+        view.showLoading()
         Task {
             do {
                 let events = try await interactor.getTournaments(region: region)
@@ -86,10 +86,10 @@ extension TournamentsPresenter: TournamentsPresenterProtocol {
                 self.upcomingEvents = upcomingEvents
                 self.endedEvents = endedEvents
                 view.reloadCollectionView()
-                
+                view.dismissLoading()
             } catch {
-                print(error)
                 // TODO: Handle error case
+                view.dismissLoading()
             }
         }
     }
