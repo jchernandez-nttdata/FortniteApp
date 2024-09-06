@@ -13,6 +13,7 @@
 		350BF41F2C8A6C9D0028891C /* TournamentDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF41E2C8A6C9D0028891C /* TournamentDetailRouter.swift */; };
 		350BF4212C8A6CA70028891C /* TournamentDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF4202C8A6CA70028891C /* TournamentDetailInteractor.swift */; };
 		350BF4242C8A83FC0028891C /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 350BF4232C8A83FC0028891C /* SkeletonView */; };
+		350BF4282C8AAD0E0028891C /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF4272C8AAD0E0028891C /* ErrorView.swift */; };
 		3548FE0A2C877D3400057FE8 /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3548FE092C877D3400057FE8 /* NetworkingManager.swift */; };
 		3548FE0D2C877EAB00057FE8 /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3548FE0C2C877EAB00057FE8 /* HttpMethod.swift */; };
 		3548FE0F2C877F8C00057FE8 /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3548FE0E2C877F8C00057FE8 /* APIConstants.swift */; };
@@ -49,6 +50,7 @@
 		350BF41C2C8A6C870028891C /* TournamentDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentDetailPresenter.swift; sourceTree = "<group>"; };
 		350BF41E2C8A6C9D0028891C /* TournamentDetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentDetailRouter.swift; sourceTree = "<group>"; };
 		350BF4202C8A6CA70028891C /* TournamentDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentDetailInteractor.swift; sourceTree = "<group>"; };
+		350BF4272C8AAD0E0028891C /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		3548FE092C877D3400057FE8 /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
 		3548FE0C2C877EAB00057FE8 /* HttpMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
 		3548FE0E2C877F8C00057FE8 /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
@@ -102,6 +104,14 @@
 				350BF4202C8A6CA70028891C /* TournamentDetailInteractor.swift */,
 			);
 			path = TournamentDetail;
+			sourceTree = "<group>";
+		};
+		350BF4292C8AAEDB0028891C /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				350BF4272C8AAD0E0028891C /* ErrorView.swift */,
+			);
+			path = Shared;
 			sourceTree = "<group>";
 		};
 		3548FE082C877CDF00057FE8 /* Managers */ = {
@@ -222,6 +232,7 @@
 		35C82D6E2C82257D008D6047 /* FortniteApp */ = {
 			isa = PBXGroup;
 			children = (
+				350BF4292C8AAEDB0028891C /* Shared */,
 				35C375BA2C88B04C004544FB /* Data */,
 				3548FE242C87B0AF00057FE8 /* Models */,
 				35C82D862C822B44008D6047 /* Scenes */,
@@ -396,6 +407,7 @@
 				35C375C42C8933A5004544FB /* TournamentCollectionViewCell.swift in Sources */,
 				35C375CB2C895169004544FB /* NetworkImageHelper.swift in Sources */,
 				3548FE262C87B0DD00057FE8 /* EventsResponse.swift in Sources */,
+				350BF4282C8AAD0E0028891C /* ErrorView.swift in Sources */,
 				35C375C02C88F837004544FB /* Region.swift in Sources */,
 				350BF4182C8A5BAE0028891C /* DateHelper.swift in Sources */,
 				3548FE142C8782A000057FE8 /* Request.swift in Sources */,
