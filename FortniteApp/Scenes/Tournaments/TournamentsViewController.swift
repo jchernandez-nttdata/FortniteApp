@@ -12,13 +12,13 @@ protocol TournamentsView: AnyObject {
     func reloadCollectionView()
     func showLoading()
     func dismissLoading()
+    func showError(title: String, description: String)
 }
 
 final class TournamentsViewController: UIViewController {
     
     var presenter: TournamentsPresenterProtocol!
-    
-    // MARK: UI Components
+        
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -72,6 +72,12 @@ final class TournamentsViewController: UIViewController {
         return spacer
     }()
     
+    private let errorView: ErrorView = {
+        let view = ErrorView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isHidden = true
+        return view
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,6 +96,7 @@ final class TournamentsViewController: UIViewController {
         view.addSubview(collectionView)
         view.addSubview(regionStackView)
         view.addSubview(seasonLabel)
+        view.addSubview(errorView)
         
         regionStackView.addArrangedSubview(regionLabel)
         regionStackView.addArrangedSubview(regionPicker)
@@ -100,11 +107,11 @@ final class TournamentsViewController: UIViewController {
         NSLayoutConstraint.activate([
             seasonLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             seasonLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            seasonLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            seasonLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             
             regionPicker.widthAnchor.constraint(equalToConstant: 70),
             
-            regionStackView.topAnchor.constraint(equalTo: seasonLabel.bottomAnchor),
+            regionStackView.topAnchor.constraint(equalTo: seasonLabel.bottomAnchor, constant: 5),
             regionStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             regionStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             
@@ -112,6 +119,12 @@ final class TournamentsViewController: UIViewController {
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            
+            errorView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            errorView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            errorView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            errorView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            
         ])
     }
     
@@ -125,7 +138,10 @@ final class TournamentsViewController: UIViewController {
     
 }
 
+// MARK: - TournamentsView
+
 extension TournamentsViewController: TournamentsView {
+
     func reloadCollectionView() {
         DispatchQueue.main.async {
             self.collectionView.reloadData()
@@ -144,7 +160,19 @@ extension TournamentsViewController: TournamentsView {
         }
     }
     
+    func showError(title: String, description: String) {
+        DispatchQueue.main.async {
+            self.collectionView.isHidden = true
+            self.regionStackView.isHidden = true
+            self.seasonLabel.isHidden = true
+            self.errorView.setup(title: title, description: description)
+            self.errorView.isHidden = false
+        }
+    }
+    
 }
+
+// MARK: - Collection view configuration
 
 extension TournamentsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -212,6 +240,8 @@ extension TournamentsViewController: UICollectionViewDelegate, UICollectionViewD
     }
     
 }
+
+// MARK: - Skeleton configuration
 
 extension TournamentsViewController: SkeletonCollectionViewDataSource, SkeletonCollectionViewDelegate {
     func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> SkeletonView.ReusableCellIdentifier {

@@ -79,7 +79,7 @@ extension TournamentsPresenter: TournamentsPresenterProtocol {
             do {
                 let events = try await interactor.getTournaments(region: region)
                 if events.isEmpty {
-                    //TODO: Handle empty case
+                    view.showError(title: "No results", description: "No tournaments found. Please check back later.")
                     return
                 }
                 let (upcomingEvents, endedEvents) = handleEvents(events: events)
@@ -87,9 +87,9 @@ extension TournamentsPresenter: TournamentsPresenterProtocol {
                 self.endedEvents = endedEvents
                 view.reloadCollectionView()
                 view.dismissLoading()
-            } catch {
-                // TODO: Handle error case
+            }  catch {
                 view.dismissLoading()
+                view.showError(title: "Somenthing went wrong", description: "An error occurred while fetching tournaments from the server. Please try again later.")
             }
         }
     }
