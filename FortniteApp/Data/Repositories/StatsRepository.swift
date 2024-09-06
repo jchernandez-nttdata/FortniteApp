@@ -47,7 +47,6 @@ final class StatsRepository: StatsRepositoryProtocol {
             }
             return matches
         } catch {
-            print(error)
             if let networkingError = error as? NetworkingError {
                 switch networkingError {
                 case .requestFailed(let statusCode) where statusCode == 404:

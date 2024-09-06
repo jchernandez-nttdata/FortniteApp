@@ -21,7 +21,14 @@ final class StatsSearchPresenter {
 
 extension StatsSearchPresenter: StatsSearchPresenterProtocol {
     func handleSearchQueryChanged(query: String) {
-        print(query)
+        Task {
+            do {
+                let playersMatches = try await interactor.searchPlayer(query: query)
+                print(playersMatches)
+            } catch {
+                //TODO: show error
+            }
+        }
     }
     
     
