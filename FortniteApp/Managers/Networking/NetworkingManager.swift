@@ -53,6 +53,7 @@ final class NetworkingManager: NetworkingManagerProtocol {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         jsonDecoder.dateDecodingStrategy = .formatted(dateFormatter)
         
