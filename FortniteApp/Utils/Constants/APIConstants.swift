@@ -10,7 +10,7 @@ import Foundation
 /// Static API constants variables
 struct APIConstants {
     /// Base URL for API requests
-    static let baseURL = "https://fortniteapi.io/v1/"
+    static let baseURL = "https://fortniteapi.io/"
     
     //TODO: check another option to save apikey
     static let apiKey = "api-key"
