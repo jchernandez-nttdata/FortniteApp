@@ -8,7 +8,7 @@
 import UIKit
 
 protocol StatsSearchView: AnyObject {
-    
+    func reloadSearchTableView()
 }
 
 final class StatsSearchViewController: UIViewController {
@@ -56,6 +56,13 @@ final class StatsSearchViewController: UIViewController {
         return textField
     }()
     
+    private let searchTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(PlayerTableViewCell.self, forCellReuseIdentifier: PlayerTableViewCell.identifier)
+        return tableView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -68,6 +75,7 @@ final class StatsSearchViewController: UIViewController {
         
         view.addSubview(statsDecriptionLabel)
         view.addSubview(searchTextField)
+        view.addSubview(searchTableView)
         
         // clear button init
         let rightView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 20))
@@ -78,6 +86,9 @@ final class StatsSearchViewController: UIViewController {
         
         searchTextField.addTarget(self, action: #selector(onSearchFieldChanged), for: .editingChanged)
         
+        searchTableView.delegate = self
+        searchTableView.dataSource = self
+        
         NSLayoutConstraint.activate([
             statsDecriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             statsDecriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
@@ -86,6 +97,11 @@ final class StatsSearchViewController: UIViewController {
             searchTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             searchTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             searchTextField.topAnchor.constraint(equalTo: statsDecriptionLabel.bottomAnchor, constant: 10),
+            
+            searchTableView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 20),
+            searchTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            searchTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            searchTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
         ])
     }
     
@@ -106,9 +122,26 @@ final class StatsSearchViewController: UIViewController {
 }
 
 extension StatsSearchViewController: StatsSearchView {
-    func handleSearchQueryChanged(query: String) {
-        print(query)
+    func reloadSearchTableView() {
+        DispatchQueue.main.async {
+            self.searchTableView.reloadData()
+        }
     }
+}
+
+extension StatsSearchViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        presenter.playerMatches.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: PlayerTableViewCell.identifier, for: indexPath) as? PlayerTableViewCell
+        let player = presenter.playerMatches[indexPath.row]
+        cell?.setup(playerName: player.matches.first?.value ?? "", playerPlatform: player.matches.first?.platform ?? "", cellType: .search)
+        return cell ?? UITableViewCell()
+    }
+    
+
     
     
 }

@@ -8,6 +8,8 @@
 import Foundation
 
 protocol StatsSearchPresenterProtocol {
+    var playerMatches: [PlayerSearchMatch] { get }
+    
     func handleSearchQueryChanged(query: String)
 }
 
@@ -17,14 +19,17 @@ final class StatsSearchPresenter {
     var interactor: StatsSearchInteractorProtocol!
     var router: StatsSearchRouterProtocol!
     
+    internal var playerMatches: [PlayerSearchMatch] = []
+    
 }
 
 extension StatsSearchPresenter: StatsSearchPresenterProtocol {
     func handleSearchQueryChanged(query: String) {
+        // TODO: handle search load
         Task {
             do {
-                let playersMatches = try await interactor.searchPlayer(query: query)
-                print(playersMatches)
+                playerMatches = try await interactor.searchPlayer(query: query)
+                view.reloadSearchTableView()
             } catch {
                 //TODO: show error
             }
