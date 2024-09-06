@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		350BF4182C8A5BAE0028891C /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF4172C8A5BAE0028891C /* DateHelper.swift */; };
+		350BF41B2C8A6C7E0028891C /* TournamentDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF41A2C8A6C7E0028891C /* TournamentDetailViewController.swift */; };
+		350BF41D2C8A6C870028891C /* TournamentDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF41C2C8A6C870028891C /* TournamentDetailPresenter.swift */; };
+		350BF41F2C8A6C9D0028891C /* TournamentDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF41E2C8A6C9D0028891C /* TournamentDetailRouter.swift */; };
+		350BF4212C8A6CA70028891C /* TournamentDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF4202C8A6CA70028891C /* TournamentDetailInteractor.swift */; };
 		3548FE0A2C877D3400057FE8 /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3548FE092C877D3400057FE8 /* NetworkingManager.swift */; };
 		3548FE0D2C877EAB00057FE8 /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3548FE0C2C877EAB00057FE8 /* HttpMethod.swift */; };
 		3548FE0F2C877F8C00057FE8 /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3548FE0E2C877F8C00057FE8 /* APIConstants.swift */; };
@@ -40,6 +44,10 @@
 
 /* Begin PBXFileReference section */
 		350BF4172C8A5BAE0028891C /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
+		350BF41A2C8A6C7E0028891C /* TournamentDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentDetailViewController.swift; sourceTree = "<group>"; };
+		350BF41C2C8A6C870028891C /* TournamentDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentDetailPresenter.swift; sourceTree = "<group>"; };
+		350BF41E2C8A6C9D0028891C /* TournamentDetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentDetailRouter.swift; sourceTree = "<group>"; };
+		350BF4202C8A6CA70028891C /* TournamentDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentDetailInteractor.swift; sourceTree = "<group>"; };
 		3548FE092C877D3400057FE8 /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
 		3548FE0C2C877EAB00057FE8 /* HttpMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
 		3548FE0E2C877F8C00057FE8 /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
@@ -83,6 +91,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		350BF4192C8A6C660028891C /* TournamentDetail */ = {
+			isa = PBXGroup;
+			children = (
+				350BF41A2C8A6C7E0028891C /* TournamentDetailViewController.swift */,
+				350BF41C2C8A6C870028891C /* TournamentDetailPresenter.swift */,
+				350BF41E2C8A6C9D0028891C /* TournamentDetailRouter.swift */,
+				350BF4202C8A6CA70028891C /* TournamentDetailInteractor.swift */,
+			);
+			path = TournamentDetail;
+			sourceTree = "<group>";
+		};
 		3548FE082C877CDF00057FE8 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
@@ -235,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				35C82D8B2C822C12008D6047 /* Tournaments */,
+				350BF4192C8A6C660028891C /* TournamentDetail */,
 				35C82D882C822BFC008D6047 /* Stats */,
 				35C82D872C822B49008D6047 /* MainTabBar */,
 			);
@@ -353,9 +373,12 @@
 				3548FE212C87A67500057FE8 /* TournamentsInteractor.swift in Sources */,
 				35C375CD2C8952C4004544FB /* ImageCacheError.swift in Sources */,
 				3548FE0D2C877EAB00057FE8 /* HttpMethod.swift in Sources */,
+				350BF41D2C8A6C870028891C /* TournamentDetailPresenter.swift in Sources */,
 				3548FE172C8784A000057FE8 /* NetworkingError.swift in Sources */,
 				3548FE0F2C877F8C00057FE8 /* APIConstants.swift in Sources */,
 				35C375C82C894A55004544FB /* SectionHeaderCollectionReusableView.swift in Sources */,
+				350BF41B2C8A6C7E0028891C /* TournamentDetailViewController.swift in Sources */,
+				350BF4212C8A6CA70028891C /* TournamentDetailInteractor.swift in Sources */,
 				3548FE1B2C879D5800057FE8 /* StatsInteractor.swift in Sources */,
 				3548FE0A2C877D3400057FE8 /* NetworkingManager.swift in Sources */,
 				35C375BE2C88F7DE004544FB /* TournamentsRepository.swift in Sources */,
@@ -368,6 +391,7 @@
 				35C375C02C88F837004544FB /* Region.swift in Sources */,
 				350BF4182C8A5BAE0028891C /* DateHelper.swift in Sources */,
 				3548FE142C8782A000057FE8 /* Request.swift in Sources */,
+				350BF41F2C8A6C9D0028891C /* TournamentDetailRouter.swift in Sources */,
 				35C82D722C82257D008D6047 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

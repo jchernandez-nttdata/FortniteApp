@@ -8,7 +8,7 @@
 import UIKit
 
 protocol TournamentsRouterProtocol {
-    
+    func routeToDetailScreen(event: Event)
 }
 
 final class TournamentsRouter {
@@ -25,6 +25,7 @@ final class TournamentsRouter {
         presenter.router = router
         presenter.interactor = interactor
         viewController.presenter = presenter
+        router.viewController = viewController
         
         return viewController
     }
@@ -32,5 +33,10 @@ final class TournamentsRouter {
 }
 
 extension TournamentsRouter: TournamentsRouterProtocol {
+    func routeToDetailScreen(event: Event) {
+        let tournamentDetailViewController = TournamentDetailRouter.createModule(event: event)
+        viewController.navigationController?.pushViewController(tournamentDetailViewController, animated: true)
+    }
+    
     
 }

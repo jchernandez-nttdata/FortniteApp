@@ -12,8 +12,9 @@ protocol TournamentsPresenterProtocol {
     var eventsCount: (upcoming: Int, ended: Int) { get }
     
     func handleViewDidLoad()
-    func getEventAt(_ index: Int, section: TournamentsSection) -> Event
+    func getEvent(at index: Int, section: TournamentsSection) -> Event
     func handleRegionChanged(region: Region)
+    func handleDidSelectEvent(at index: Int, section: TournamentsSection)
 }
 
 final class TournamentsPresenter {
@@ -37,7 +38,7 @@ extension TournamentsPresenter: TournamentsPresenterProtocol {
         (upcomingEvents.count, endedEvents.count)
     }
     
-    func getEventAt(_ index: Int, section: TournamentsSection) -> Event {
+    func getEvent(at index: Int, section: TournamentsSection) -> Event {
         switch section {
             
         case .upcomingEvents:
@@ -57,6 +58,17 @@ extension TournamentsPresenter: TournamentsPresenterProtocol {
         }
         currentRegion = region
         loadTournaments(for: region)
+    }
+    
+    func handleDidSelectEvent(at index: Int, section: TournamentsSection) {
+        let event: Event = switch section {
+        case .upcomingEvents:
+            upcomingEvents[index]
+        case .endedEvents:
+            endedEvents[index]
+        }
+        
+        router.routeToDetailScreen(event: event)
     }
     
     // MARK: - Private methods

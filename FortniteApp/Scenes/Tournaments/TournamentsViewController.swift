@@ -143,6 +143,11 @@ extension TournamentsViewController: UICollectionViewDelegate, UICollectionViewD
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let section = presenter.tournamentSections[indexPath.section]
+        presenter.handleDidSelectEvent(at: indexPath.row, section: section)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // All sections uses the same cell
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TournamentCollectionViewCell.identifier, for: indexPath) as? TournamentCollectionViewCell
@@ -150,11 +155,11 @@ extension TournamentsViewController: UICollectionViewDelegate, UICollectionViewD
         let section = presenter.tournamentSections[indexPath.section]
         switch section {
         case .upcomingEvents:
-            let event = presenter.getEventAt(indexPath.row, section: .upcomingEvents)
+            let event = presenter.getEvent(at: indexPath.row, section: .upcomingEvents)
             cell?.setup(title: event.title, timeUntil: event.formattedTimeUntil, posterUrl: event.poster)
             return cell ?? UICollectionViewCell()
         case .endedEvents:
-            let event = presenter.getEventAt(indexPath.row, section: .endedEvents)
+            let event = presenter.getEvent(at: indexPath.row, section: .endedEvents)
             cell?.setup(title: event.title, timeUntil: event.formattedTimeUntil, posterUrl: event.poster)
             return cell ?? UICollectionViewCell()
         }

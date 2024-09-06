@@ -16,13 +16,14 @@ struct Event: Decodable {
     let beginTime: Date
     let endTime: Date
     let poster: String?
+    let loadingScreen: String?
     let shortDescription: String
     let nameLine1: String
     let nameLine2: String
     let windows: [EventWindow]
     
     private enum CodingKeys: String, CodingKey {
-        case id, beginTime, endTime, poster, windows
+        case id, beginTime, endTime, poster, windows, loadingScreen
         case nameLine1 = "name_line1"
         case nameLine2 = "name_line2"
         case shortDescription = "short_description"
