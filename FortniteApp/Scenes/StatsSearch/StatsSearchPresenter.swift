@@ -9,6 +9,7 @@ import Foundation
 
 protocol StatsSearchPresenterProtocol {
     var playerMatches: [PlayerSearchMatch] { get }
+    var searchHistory: [PlayerSearchHistoryRecord] { get }
     
     func handleSearchQueryChanged(query: String)
     func handleDidSelectPlayer(at index: Int)
@@ -32,6 +33,7 @@ extension StatsSearchPresenter: StatsSearchPresenterProtocol {
         guard !query.isEmpty else {
             playerMatches = []
             view.reloadSearchTableView()
+            toggleTablesVisibility(isHistoryHidden: false)
             return
         }
         
@@ -41,6 +43,7 @@ extension StatsSearchPresenter: StatsSearchPresenterProtocol {
                 playerMatches = try await interactor.searchPlayer(query: query)
                 view.reloadSearchTableView()
                 view.dismissLoading()
+                toggleTablesVisibility(isHistoryHidden: true)
             } catch {
                 //TODO: show error
                 view.dismissLoading()
@@ -66,10 +69,19 @@ extension StatsSearchPresenter: StatsSearchPresenterProtocol {
     
     func handleViewDidLoad() {
         do {
-            searchHistory = try interactor.getSearchHistory()
-            print(searchHistory)
+            searchHistory = try interactor.getSearchHistory().reversed()
+            //TODO: handle empty case
+            view.reloadHistoryTableView()
         } catch {
             // TODO: handle history get error
         }
+    }
+    
+    private func toggleTablesVisibility(isHistoryHidden: Bool) {
+        if (!isHistoryHidden) {
+            handleViewDidLoad()
+        }
+        view.setHistoryTableViewVisibility(isHidden: isHistoryHidden)
+        view.setSearchTableViewVisibility(isHidden: !isHistoryHidden)
     }
 }

@@ -10,8 +10,11 @@ import SkeletonView
 
 protocol StatsSearchView: AnyObject {
     func reloadSearchTableView()
+    func reloadHistoryTableView()
     func showLoading()
     func dismissLoading()
+    func setSearchTableViewVisibility(isHidden: Bool)
+    func setHistoryTableViewVisibility(isHidden: Bool)
 }
 
 final class StatsSearchViewController: UIViewController {
@@ -66,6 +69,16 @@ final class StatsSearchViewController: UIViewController {
         tableView.sectionHeaderTopPadding = 0
         tableView.register(PlayerTableViewCell.self, forCellReuseIdentifier: PlayerTableViewCell.identifier)
         tableView.register(PlayerTableHeaderView.self, forHeaderFooterViewReuseIdentifier: PlayerTableHeaderView.identifier)
+        tableView.isHidden = true
+        return tableView
+    }()
+    
+    private let historyTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.sectionHeaderTopPadding = 0
+        tableView.register(PlayerTableViewCell.self, forCellReuseIdentifier: PlayerTableViewCell.identifier)
+        tableView.register(PlayerTableHeaderView.self, forHeaderFooterViewReuseIdentifier: PlayerTableHeaderView.identifier)
         return tableView
     }()
     
@@ -87,6 +100,7 @@ final class StatsSearchViewController: UIViewController {
         view.addSubview(statsDecriptionLabel)
         view.addSubview(searchTextField)
         view.addSubview(searchTableView)
+        view.addSubview(historyTableView)
         
         // clear button init
         let rightView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 20))
@@ -99,6 +113,8 @@ final class StatsSearchViewController: UIViewController {
         
         searchTableView.delegate = self
         searchTableView.dataSource = self
+        historyTableView.delegate = self
+        historyTableView.dataSource = self
         
         NSLayoutConstraint.activate([
             statsDecriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -113,6 +129,11 @@ final class StatsSearchViewController: UIViewController {
             searchTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             searchTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             searchTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            
+            historyTableView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 20),
+            historyTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            historyTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            historyTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
         ])
     }
     
@@ -142,6 +163,12 @@ extension StatsSearchViewController: StatsSearchView {
         }
     }
     
+    func reloadHistoryTableView() {
+        DispatchQueue.main.async {
+            self.historyTableView.reloadData()
+        }
+    }
+    
     func showLoading() {
         DispatchQueue.main.async {
             self.searchTableView.showAnimatedSkeleton(usingColor: .lightGray)
@@ -153,28 +180,70 @@ extension StatsSearchViewController: StatsSearchView {
             self.searchTableView.hideSkeleton()
         }
     }
+    
+    func setSearchTableViewVisibility(isHidden: Bool) {
+        DispatchQueue.main.async {
+            self.searchTableView.isHidden = isHidden
+        }
+    }
+    
+    func setHistoryTableViewVisibility(isHidden: Bool) {
+        DispatchQueue.main.async {
+            self.historyTableView.isHidden = isHidden
+        }
+    }
 }
 
 // MARK: - Table view configuration
 extension StatsSearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter.playerMatches.count
+        switch tableView {
+        case searchTableView:
+            return presenter.playerMatches.count
+        case historyTableView:
+            return presenter.searchHistory.count
+        default:
+            fatalError()
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PlayerTableViewCell.identifier, for: indexPath) as? PlayerTableViewCell
-        let player = presenter.playerMatches[indexPath.row]
-        cell?.setup(playerName: player.matches.first?.value ?? "", playerPlatform: player.matches.first?.platform ?? "", cellType: .search)
-        return cell ?? UITableViewCell()
+        
+        switch tableView {
+        case searchTableView:
+            let player = presenter.playerMatches[indexPath.row]
+            cell?.setup(playerName: player.matches.first?.value ?? "", playerPlatform: player.matches.first?.platform ?? "", cellType: .search)
+            return cell ?? UITableViewCell()
+        case historyTableView:
+            let player = presenter.searchHistory[indexPath.row]
+            cell?.setup(playerName: player.name, playerPlatform: player.platform, cellType: .history)
+            return cell ?? UITableViewCell()
+        default:
+            fatalError()
+        }
+        
+        
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard !presenter.playerMatches.isEmpty else {
-            return nil
-        }
         let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: PlayerTableHeaderView.identifier) as? PlayerTableHeaderView
-        view?.setup(title: "Results")
-        return view
+        switch tableView {
+        case searchTableView:
+            guard !presenter.playerMatches.isEmpty else {
+                return nil
+            }
+            view?.setup(title: "Results")
+            return view
+        case historyTableView:
+            guard !presenter.searchHistory.isEmpty else {
+                return nil
+            }
+            view?.setup(title: "Recent searches")
+            return view
+        default:
+            fatalError()
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
