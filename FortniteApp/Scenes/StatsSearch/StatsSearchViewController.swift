@@ -74,6 +74,8 @@ final class StatsSearchViewController: UIViewController {
         
         setup()
         setupSkeleton()
+        
+        presenter.handleViewDidLoad()
     }
     
     private func setup() {
@@ -173,6 +175,10 @@ extension StatsSearchViewController: UITableViewDelegate, UITableViewDataSource 
         let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: PlayerTableHeaderView.identifier) as? PlayerTableHeaderView
         view?.setup(title: "Results")
         return view
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter.handleDidSelectPlayer(at: indexPath.row)
     }
 
 }
