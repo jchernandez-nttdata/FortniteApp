@@ -54,6 +54,7 @@ class PlayerTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
+        setupSkeleton()
     }
     
     required init?(coder: NSCoder) {
@@ -63,6 +64,7 @@ class PlayerTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         setup()
+        setupSkeleton()
     }
     
     override func prepareForReuse() {
@@ -87,10 +89,18 @@ class PlayerTableViewCell: UITableViewCell {
             actionButton.heightAnchor.constraint(equalToConstant: 44),
             
             playerInfoStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            playerInfoStack.trailingAnchor.constraint(equalTo: actionButton.leadingAnchor),
+            playerInfoStack.trailingAnchor.constraint(equalTo: actionButton.leadingAnchor, constant: -10),
             playerInfoStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             playerInfoStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
         ])
+    }
+    
+    private func setupSkeleton() {
+        isSkeletonable = true
+        playerInfoStack.isSkeletonable = true
+        playerNameLabel.isSkeletonable = true
+        playerPlatformLabel.isSkeletonable = true
+        actionButton.isSkeletonable = true
     }
     
     @objc private func onActionTapped() {

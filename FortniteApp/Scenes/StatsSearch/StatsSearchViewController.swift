@@ -6,9 +6,12 @@
 //
 
 import UIKit
+import SkeletonView
 
 protocol StatsSearchView: AnyObject {
     func reloadSearchTableView()
+    func showLoading()
+    func dismissLoading()
 }
 
 final class StatsSearchViewController: UIViewController {
@@ -36,6 +39,7 @@ final class StatsSearchViewController: UIViewController {
     private let searchTextField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .lightGray.withAlphaComponent(0.3)
+        textField.keyboardType = .webSearch
         textField.borderStyle = .roundedRect
         textField.textColor = .black
         textField.attributedPlaceholder = NSAttributedString(string: "e.g. Ninja", attributes: [NSAttributedString.Key.foregroundColor: UIColor.darkGray])
@@ -59,7 +63,9 @@ final class StatsSearchViewController: UIViewController {
     private let searchTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.sectionHeaderTopPadding = 0
         tableView.register(PlayerTableViewCell.self, forCellReuseIdentifier: PlayerTableViewCell.identifier)
+        tableView.register(PlayerTableHeaderView.self, forHeaderFooterViewReuseIdentifier: PlayerTableHeaderView.identifier)
         return tableView
     }()
     
@@ -67,11 +73,14 @@ final class StatsSearchViewController: UIViewController {
         super.viewDidLoad()
         
         setup()
+        setupSkeleton()
     }
     
     private func setup() {
         view.backgroundColor = .white
         title = "Stats"
+        
+        self.hideKeyboardWhenTappedAround()
         
         view.addSubview(statsDecriptionLabel)
         view.addSubview(searchTextField)
@@ -105,30 +114,46 @@ final class StatsSearchViewController: UIViewController {
         ])
     }
     
+    private func setupSkeleton() {
+        searchTableView.isSkeletonable = true
+    }
+    
     @objc private func clearTextField() {
         searchTextField.text = ""
+        searchTextField.resignFirstResponder()
+        presenter.handleSearchQueryChanged(query: "")
     }
     
     @objc private func onSearchFieldChanged(_ textField: UITextField) {
-        guard let query = textField.text, !query.isEmpty else {
-            return
-        }
-        
         searchDebouncer.run {
-            self.presenter.handleSearchQueryChanged(query: query)
+            self.presenter.handleSearchQueryChanged(query: textField.text ?? "")
         }
     }
 
 }
 
+// MARK: - StatsSearchView
 extension StatsSearchViewController: StatsSearchView {
     func reloadSearchTableView() {
         DispatchQueue.main.async {
             self.searchTableView.reloadData()
         }
     }
+    
+    func showLoading() {
+        DispatchQueue.main.async {
+            self.searchTableView.showAnimatedSkeleton(usingColor: .lightGray)
+        }
+    }
+    
+    func dismissLoading() {
+        DispatchQueue.main.async {
+            self.searchTableView.hideSkeleton()
+        }
+    }
 }
 
+// MARK: - Table view configuration
 extension StatsSearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         presenter.playerMatches.count
@@ -141,7 +166,38 @@ extension StatsSearchViewController: UITableViewDelegate, UITableViewDataSource 
         return cell ?? UITableViewCell()
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard !presenter.playerMatches.isEmpty else {
+            return nil
+        }
+        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: PlayerTableHeaderView.identifier) as? PlayerTableHeaderView
+        view?.setup(title: "Results")
+        return view
+    }
 
+}
+
+// MARK: - Skeleton configuration
+extension StatsSearchViewController: SkeletonTableViewDataSource, SkeletonTableViewDelegate {
     
+    func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        PlayerTableViewCell.identifier
+    }
+    
+    func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        7
+    }
+    
+    func collectionSkeletonView(_ skeletonView: UITableView, prepareCellForSkeleton cell: UITableViewCell, at indexPath: IndexPath) {
+        guard let cell = cell as? PlayerTableViewCell else {
+            return
+        }
+        cell.setup(playerName: " ", playerPlatform: " ", cellType: .search)
+    }
+    
+    
+    func collectionSkeletonView(_ skeletonView: UITableView, identifierForHeaderInSection section: Int) -> ReusableHeaderFooterIdentifier? {
+        PlayerTableHeaderView.identifier
+    }
     
 }

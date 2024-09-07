@@ -25,13 +25,21 @@ final class StatsSearchPresenter {
 
 extension StatsSearchPresenter: StatsSearchPresenterProtocol {
     func handleSearchQueryChanged(query: String) {
-        // TODO: handle search load
+        guard !query.isEmpty else {
+            playerMatches = []
+            view.reloadSearchTableView()
+            return
+        }
+        
+        view.showLoading()
         Task {
             do {
                 playerMatches = try await interactor.searchPlayer(query: query)
                 view.reloadSearchTableView()
+                view.dismissLoading()
             } catch {
                 //TODO: show error
+                view.dismissLoading()
             }
         }
     }

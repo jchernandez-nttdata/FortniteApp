@@ -19,6 +19,8 @@
 		350BF4312C8B60D60028891C /* StatsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF4302C8B60D60028891C /* StatsRepository.swift */; };
 		350BF4332C8B68FF0028891C /* DebouncerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF4322C8B68FF0028891C /* DebouncerHelper.swift */; };
 		350BF4362C8B80430028891C /* PlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF4352C8B80430028891C /* PlayerTableViewCell.swift */; };
+		350BF43C2C8C050E0028891C /* UIViewController+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF43B2C8C050E0028891C /* UIViewController+extensions.swift */; };
+		350BF43E2C8C0DA40028891C /* PlayerTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF43D2C8C0DA40028891C /* PlayerTableHeaderView.swift */; };
 		3548FE0A2C877D3400057FE8 /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3548FE092C877D3400057FE8 /* NetworkingManager.swift */; };
 		3548FE0D2C877EAB00057FE8 /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3548FE0C2C877EAB00057FE8 /* HttpMethod.swift */; };
 		3548FE0F2C877F8C00057FE8 /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3548FE0E2C877F8C00057FE8 /* APIConstants.swift */; };
@@ -61,6 +63,8 @@
 		350BF4302C8B60D60028891C /* StatsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsRepository.swift; sourceTree = "<group>"; };
 		350BF4322C8B68FF0028891C /* DebouncerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebouncerHelper.swift; sourceTree = "<group>"; };
 		350BF4352C8B80430028891C /* PlayerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTableViewCell.swift; sourceTree = "<group>"; };
+		350BF43B2C8C050E0028891C /* UIViewController+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+extensions.swift"; sourceTree = "<group>"; };
+		350BF43D2C8C0DA40028891C /* PlayerTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTableHeaderView.swift; sourceTree = "<group>"; };
 		3548FE092C877D3400057FE8 /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
 		3548FE0C2C877EAB00057FE8 /* HttpMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
 		3548FE0E2C877F8C00057FE8 /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
@@ -128,8 +132,17 @@
 			isa = PBXGroup;
 			children = (
 				350BF4352C8B80430028891C /* PlayerTableViewCell.swift */,
+				350BF43D2C8C0DA40028891C /* PlayerTableHeaderView.swift */,
 			);
 			path = Subviews;
+			sourceTree = "<group>";
+		};
+		350BF43A2C8C04ED0028891C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				350BF43B2C8C050E0028891C /* UIViewController+extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		3548FE082C877CDF00057FE8 /* Managers */ = {
@@ -143,6 +156,7 @@
 		3548FE0B2C877E9B00057FE8 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				350BF43A2C8C04ED0028891C /* Extensions */,
 				35C375C92C895142004544FB /* Helpers */,
 				3548FE152C87849700057FE8 /* Errors */,
 				3548FE112C877FA700057FE8 /* Constants */,
@@ -437,7 +451,9 @@
 				350BF4282C8AAD0E0028891C /* ErrorView.swift in Sources */,
 				35C375C02C88F837004544FB /* Region.swift in Sources */,
 				350BF4182C8A5BAE0028891C /* DateHelper.swift in Sources */,
+				350BF43E2C8C0DA40028891C /* PlayerTableHeaderView.swift in Sources */,
 				3548FE142C8782A000057FE8 /* Request.swift in Sources */,
+				350BF43C2C8C050E0028891C /* UIViewController+extensions.swift in Sources */,
 				350BF41F2C8A6C9D0028891C /* TournamentDetailRouter.swift in Sources */,
 				350BF4362C8B80430028891C /* PlayerTableViewCell.swift in Sources */,
 				35C82D722C82257D008D6047 /* SceneDelegate.swift in Sources */,
