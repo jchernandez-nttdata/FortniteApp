@@ -25,6 +25,10 @@
 		350BF4442C8C13B90028891C /* LocalDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF4432C8C13B90028891C /* LocalDataManager.swift */; };
 		350BF4482C8C17EF0028891C /* SearchHistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF4472C8C17EF0028891C /* SearchHistoryRepository.swift */; };
 		350BF44A2C8C18150028891C /* PlayerSearchHistoryRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF4492C8C18150028891C /* PlayerSearchHistoryRecord.swift */; };
+		350BF44D2C8E66980028891C /* PlayerStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF44C2C8E66980028891C /* PlayerStatsViewController.swift */; };
+		350BF44F2C8E66A50028891C /* PlayerStatsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF44E2C8E66A50028891C /* PlayerStatsInteractor.swift */; };
+		350BF4512C8E66AD0028891C /* PlayerStatsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF4502C8E66AD0028891C /* PlayerStatsPresenter.swift */; };
+		350BF4532C8E66B90028891C /* PlayerStatsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF4522C8E66B90028891C /* PlayerStatsRouter.swift */; };
 		3548FE0A2C877D3400057FE8 /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3548FE092C877D3400057FE8 /* NetworkingManager.swift */; };
 		3548FE0D2C877EAB00057FE8 /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3548FE0C2C877EAB00057FE8 /* HttpMethod.swift */; };
 		3548FE0F2C877F8C00057FE8 /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3548FE0E2C877F8C00057FE8 /* APIConstants.swift */; };
@@ -72,6 +76,10 @@
 		350BF4432C8C13B90028891C /* LocalDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataManager.swift; sourceTree = "<group>"; };
 		350BF4472C8C17EF0028891C /* SearchHistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryRepository.swift; sourceTree = "<group>"; };
 		350BF4492C8C18150028891C /* PlayerSearchHistoryRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSearchHistoryRecord.swift; sourceTree = "<group>"; };
+		350BF44C2C8E66980028891C /* PlayerStatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStatsViewController.swift; sourceTree = "<group>"; };
+		350BF44E2C8E66A50028891C /* PlayerStatsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStatsInteractor.swift; sourceTree = "<group>"; };
+		350BF4502C8E66AD0028891C /* PlayerStatsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStatsPresenter.swift; sourceTree = "<group>"; };
+		350BF4522C8E66B90028891C /* PlayerStatsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStatsRouter.swift; sourceTree = "<group>"; };
 		3548FE092C877D3400057FE8 /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
 		3548FE0C2C877EAB00057FE8 /* HttpMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
 		3548FE0E2C877F8C00057FE8 /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
@@ -159,6 +167,17 @@
 				350BF4432C8C13B90028891C /* LocalDataManager.swift */,
 			);
 			path = LocalData;
+			sourceTree = "<group>";
+		};
+		350BF44B2C8E66740028891C /* PlayerStats */ = {
+			isa = PBXGroup;
+			children = (
+				350BF44C2C8E66980028891C /* PlayerStatsViewController.swift */,
+				350BF44E2C8E66A50028891C /* PlayerStatsInteractor.swift */,
+				350BF4502C8E66AD0028891C /* PlayerStatsPresenter.swift */,
+				350BF4522C8E66B90028891C /* PlayerStatsRouter.swift */,
+			);
+			path = PlayerStats;
 			sourceTree = "<group>";
 		};
 		3548FE082C877CDF00057FE8 /* Managers */ = {
@@ -324,6 +343,7 @@
 				35C82D8B2C822C12008D6047 /* Tournaments */,
 				350BF4192C8A6C660028891C /* TournamentDetail */,
 				35C82D882C822BFC008D6047 /* StatsSearch */,
+				350BF44B2C8E66740028891C /* PlayerStats */,
 				35C82D872C822B49008D6047 /* MainTabBar */,
 			);
 			path = Scenes;
@@ -456,7 +476,9 @@
 				3548FE172C8784A000057FE8 /* NetworkingError.swift in Sources */,
 				3548FE0F2C877F8C00057FE8 /* APIConstants.swift in Sources */,
 				35C375C82C894A55004544FB /* SectionHeaderCollectionReusableView.swift in Sources */,
+				350BF44F2C8E66A50028891C /* PlayerStatsInteractor.swift in Sources */,
 				350BF42B2C8B5EA00028891C /* PlayerSearchResponse.swift in Sources */,
+				350BF44D2C8E66980028891C /* PlayerStatsViewController.swift in Sources */,
 				350BF41B2C8A6C7E0028891C /* TournamentDetailViewController.swift in Sources */,
 				350BF4212C8A6CA70028891C /* TournamentDetailInteractor.swift in Sources */,
 				3548FE1B2C879D5800057FE8 /* StatsSearchInteractor.swift in Sources */,
@@ -469,6 +491,8 @@
 				35C375C42C8933A5004544FB /* TournamentCollectionViewCell.swift in Sources */,
 				35C375CB2C895169004544FB /* NetworkImageHelper.swift in Sources */,
 				350BF42D2C8B5EC60028891C /* PlayerSearchMatch.swift in Sources */,
+				350BF4512C8E66AD0028891C /* PlayerStatsPresenter.swift in Sources */,
+				350BF4532C8E66B90028891C /* PlayerStatsRouter.swift in Sources */,
 				350BF4482C8C17EF0028891C /* SearchHistoryRepository.swift in Sources */,
 				3548FE262C87B0DD00057FE8 /* EventsResponse.swift in Sources */,
 				350BF4282C8AAD0E0028891C /* ErrorView.swift in Sources */,

@@ -8,7 +8,7 @@
 import UIKit
 
 protocol StatsSearchRouterProtocol {
-    
+    func routeToPlayerStatsScreen(accountId: String)
 }
 
 final class StatsSearchRouter {
@@ -25,6 +25,7 @@ final class StatsSearchRouter {
         presenter.router = router
         presenter.interactor = interactor
         viewController.presenter = presenter
+        router.viewController = viewController
         
         return viewController
     }
@@ -32,5 +33,10 @@ final class StatsSearchRouter {
 }
 
 extension StatsSearchRouter: StatsSearchRouterProtocol {
+    func routeToPlayerStatsScreen(accountId: String) {
+        let playerStatsViewController = PlayerStatsRouter.createModule(accountId: accountId)
+        viewController.navigationController?.pushViewController(playerStatsViewController, animated: true)
+    }
+    
     
 }

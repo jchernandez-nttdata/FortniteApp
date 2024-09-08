@@ -77,9 +77,10 @@ extension StatsSearchPresenter: StatsSearchPresenterProtocol {
             } catch {
                 print("Failed to save history record \(error.localizedDescription)")
             }
-            // TODO: navigate
+            router.routeToPlayerStatsScreen(accountId: player.accountId)
         } else {
-            // TODO: navigate
+            let historyRecord = searchHistory[index]
+            router.routeToPlayerStatsScreen(accountId: historyRecord.accountId)
         }
         
     }
