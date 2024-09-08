@@ -19,6 +19,7 @@ final class PlayerStatsViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .asbestos
+        presenter.handleViewDidLoad()
     }
 }
 

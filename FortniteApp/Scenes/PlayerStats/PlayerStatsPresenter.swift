@@ -9,7 +9,7 @@ import Foundation
 
 
 protocol PlayerStatsPresenterProtocol {
-    
+    func handleViewDidLoad()
 }
 
 final class PlayerStatsPresenter {
@@ -18,6 +18,7 @@ final class PlayerStatsPresenter {
     var interactor: PlayerStatsInteractorProtocol!
     
     let accountId: String
+    var playerStats: PlayerStats?
     
     init(accountId: String) {
         self.accountId = accountId
@@ -25,5 +26,16 @@ final class PlayerStatsPresenter {
 }
 
 extension PlayerStatsPresenter: PlayerStatsPresenterProtocol {
+    func handleViewDidLoad() {
+        Task {
+            do {
+                playerStats = try await interactor.getPlayerStats(accountId: accountId)
+                print(playerStats)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        
+    }
     
 }
