@@ -16,6 +16,12 @@ protocol StatsRepositoryProtocol {
     /// - Returns: An array of `PlayerSearchMatch` objects representing the matched players.
     /// - Throws: An error if the network request fails or the data cannot be decoded
     func searchPlayer(query: String) async throws -> [PlayerSearchMatch]
+    
+    /// Retrieves player statistics for a given account id.
+    /// - Parameter accountId: The unique identifier for the player's account.
+    /// - Returns: A `PlayerStats` object containing the player's detailed statistics.
+    /// - Throws: An error if the network request fails or if the data cannot be decoded.
+    func getPlayerStats(accountId: String) async throws -> PlayerStats
 }
 
 /// A concrete implementation of the `StatsRepositoryProtocol`.
@@ -60,5 +66,19 @@ final class StatsRepository: StatsRepositoryProtocol {
         }
     }
     
+    /// Retrieves player statistics for a given account id.
+    /// - Parameter accountId: The unique identifier for the player's account.
+    /// - Returns: A `PlayerStats` object containing the player's detailed statistics.
+    /// - Throws: An error if the network request fails or if the data cannot be decoded.
+    func getPlayerStats(accountId: String) async throws -> PlayerStats {
+        let queryParams = [
+            URLQueryItem(name: "account", value: accountId),
+        ]
+        
+        let request = Request(endpoint: "stats", httpMethod: .GET, queryParams: queryParams)
+        
+        return try await networkingManager.request(from: request)
+        
+    }
     
 }
