@@ -12,8 +12,9 @@ protocol StatsSearchPresenterProtocol {
     var searchHistory: [PlayerSearchHistoryRecord] { get }
     
     func handleSearchQueryChanged(query: String)
-    func handleDidSelectPlayer(at index: Int)
+    func handleDidSelectPlayer(at index: Int, isHistory: Bool)
     func handleViewDidLoad()
+    func handleDeleteHistoryRecord(at index: Int)
 }
 
 final class StatsSearchPresenter {
@@ -30,6 +31,9 @@ final class StatsSearchPresenter {
 extension StatsSearchPresenter: StatsSearchPresenterProtocol {
     
     func handleSearchQueryChanged(query: String) {
+        view.hideError()
+
+        // show history if query is empty
         guard !query.isEmpty else {
             playerMatches = []
             view.reloadSearchTableView()
@@ -38,44 +42,68 @@ extension StatsSearchPresenter: StatsSearchPresenterProtocol {
         }
         
         view.showLoading()
+        toggleTablesVisibility(isHistoryHidden: true)
         Task {
             do {
                 playerMatches = try await interactor.searchPlayer(query: query)
+                if playerMatches.isEmpty {
+                    view.dismissLoading()
+                    view.setSearchTableViewVisibility(isHidden: true)
+                    view.showError(title: "No results", description: "Sorry, no results were found for your search. Please try searching for a different player.")
+                    return
+                }
                 view.reloadSearchTableView()
                 view.dismissLoading()
                 toggleTablesVisibility(isHistoryHidden: true)
             } catch {
-                //TODO: show error
+                view.setSearchTableViewVisibility(isHidden: true)
+                view.showError(title: "Something went wrong", description: "An error occurred while searching players from the server. Please try again later.")
                 view.dismissLoading()
             }
         }
     }
     
-    func handleDidSelectPlayer(at index: Int) {
-        let player = playerMatches[index]
-        let historyRecord = PlayerSearchHistoryRecord(
-            name: player.matches.first?.value ?? "",
-            platform: player.matches.first?.platform ?? "",
-            accountId: player.accountId
-        )
-        do {
-            try interactor.saveSearchHistoryRecord(object: historyRecord)
-        } catch {
-            // TODO: handle history save error
+    func handleDidSelectPlayer(at index: Int, isHistory: Bool) {
+        
+        if !isHistory {
+            let player = playerMatches[index]
+            let historyRecord = PlayerSearchHistoryRecord(
+                name: player.matches.first?.value ?? "",
+                platform: player.matches.first?.platform ?? "",
+                accountId: player.accountId
+            )
+            do {
+                try interactor.saveSearchHistoryRecord(object: historyRecord)
+            } catch {
+                print("Failed to save history record \(error.localizedDescription)")
+            }
+            // TODO: navigate
+        } else {
+            // TODO: navigate
         }
         
-        //TODO: navigate to player detail
     }
     
     func handleViewDidLoad() {
         do {
             searchHistory = try interactor.getSearchHistory().reversed()
-            //TODO: handle empty case
             view.reloadHistoryTableView()
         } catch {
-            // TODO: handle history get error
+            print("Failed to retreive history records \(error.localizedDescription)")
         }
     }
+    
+    func handleDeleteHistoryRecord(at index: Int) {
+        do {
+            let recordToDelete = searchHistory[index]
+            try interactor.deleteSearchHistoryRecord(object: recordToDelete)
+            searchHistory = try interactor.getSearchHistory().reversed()
+            view.reloadHistoryTableView()
+        } catch {
+            print("Failed to delete history record \(error.localizedDescription)")
+        }
+    }
+    
     
     private func toggleTablesVisibility(isHistoryHidden: Bool) {
         if (!isHistoryHidden) {

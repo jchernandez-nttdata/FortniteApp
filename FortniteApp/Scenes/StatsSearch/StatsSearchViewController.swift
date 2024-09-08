@@ -15,6 +15,8 @@ protocol StatsSearchView: AnyObject {
     func dismissLoading()
     func setSearchTableViewVisibility(isHidden: Bool)
     func setHistoryTableViewVisibility(isHidden: Bool)
+    func showError(title: String, description: String)
+    func hideError()
 }
 
 final class StatsSearchViewController: UIViewController {
@@ -82,6 +84,13 @@ final class StatsSearchViewController: UIViewController {
         return tableView
     }()
     
+    private let errorView: ErrorView = {
+        let view = ErrorView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isHidden = true
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -101,6 +110,7 @@ final class StatsSearchViewController: UIViewController {
         view.addSubview(searchTextField)
         view.addSubview(searchTableView)
         view.addSubview(historyTableView)
+        view.addSubview(errorView)
         
         // clear button init
         let rightView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 20))
@@ -134,6 +144,11 @@ final class StatsSearchViewController: UIViewController {
             historyTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             historyTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             historyTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            
+            errorView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor),
+            errorView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            errorView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            errorView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
         ])
     }
     
@@ -192,6 +207,19 @@ extension StatsSearchViewController: StatsSearchView {
             self.historyTableView.isHidden = isHidden
         }
     }
+    
+    func showError(title: String, description: String) {
+        DispatchQueue.main.async {
+            self.errorView.setup(title: title, description: description)
+            self.errorView.isHidden = false
+        }
+    }
+    
+    func hideError() {
+        DispatchQueue.main.async {
+            self.errorView.isHidden = true
+        }
+    }
 }
 
 // MARK: - Table view configuration
@@ -217,13 +245,18 @@ extension StatsSearchViewController: UITableViewDelegate, UITableViewDataSource 
             return cell ?? UITableViewCell()
         case historyTableView:
             let player = presenter.searchHistory[indexPath.row]
-            cell?.setup(playerName: player.name, playerPlatform: player.platform, cellType: .history)
+            cell?.setup(
+                playerName: player.name,
+                playerPlatform: player.platform,
+                cellType: .history,
+                actionHandler: {
+                    self.presenter.handleDeleteHistoryRecord(at: indexPath.row)
+                }
+            )
             return cell ?? UITableViewCell()
         default:
             fatalError()
         }
-        
-        
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -247,7 +280,15 @@ extension StatsSearchViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.handleDidSelectPlayer(at: indexPath.row)
+        let isHistory = switch tableView {
+        case searchTableView:
+            false
+        case historyTableView:
+            true
+        default:
+            fatalError()
+        }
+        presenter.handleDidSelectPlayer(at: indexPath.row, isHistory: isHistory)
     }
 
 }
