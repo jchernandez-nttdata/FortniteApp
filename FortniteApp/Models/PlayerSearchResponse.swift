@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct PlayerSearchResponse: Codable {
+struct PlayerSearchResponse: Decodable {
     let result: Bool
     let matches: [PlayerSearchMatch]?
 }
 
-struct PlayerSearchMatch: Codable {
+struct PlayerSearchMatch: Decodable {
     let accountId: String
     let matches: [PlayerSearchMatchDetail]
 }

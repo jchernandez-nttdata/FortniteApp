@@ -29,6 +29,9 @@
 		350BF44F2C8E66A50028891C /* PlayerStatsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF44E2C8E66A50028891C /* PlayerStatsInteractor.swift */; };
 		350BF4512C8E66AD0028891C /* PlayerStatsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF4502C8E66AD0028891C /* PlayerStatsPresenter.swift */; };
 		350BF4532C8E66B90028891C /* PlayerStatsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF4522C8E66B90028891C /* PlayerStatsRouter.swift */; };
+		350BF4552C8E6C130028891C /* PlayerStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF4542C8E6C130028891C /* PlayerStats.swift */; };
+		350BF4572C8E6C6F0028891C /* AccountInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF4562C8E6C6F0028891C /* AccountInfo.swift */; };
+		350BF4592C8E6D0E0028891C /* GlobalStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF4582C8E6D0E0028891C /* GlobalStats.swift */; };
 		3548FE0A2C877D3400057FE8 /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3548FE092C877D3400057FE8 /* NetworkingManager.swift */; };
 		3548FE0D2C877EAB00057FE8 /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3548FE0C2C877EAB00057FE8 /* HttpMethod.swift */; };
 		3548FE0F2C877F8C00057FE8 /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3548FE0E2C877F8C00057FE8 /* APIConstants.swift */; };
@@ -80,6 +83,9 @@
 		350BF44E2C8E66A50028891C /* PlayerStatsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStatsInteractor.swift; sourceTree = "<group>"; };
 		350BF4502C8E66AD0028891C /* PlayerStatsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStatsPresenter.swift; sourceTree = "<group>"; };
 		350BF4522C8E66B90028891C /* PlayerStatsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStatsRouter.swift; sourceTree = "<group>"; };
+		350BF4542C8E6C130028891C /* PlayerStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStats.swift; sourceTree = "<group>"; };
+		350BF4562C8E6C6F0028891C /* AccountInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfo.swift; sourceTree = "<group>"; };
+		350BF4582C8E6D0E0028891C /* GlobalStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalStats.swift; sourceTree = "<group>"; };
 		3548FE092C877D3400057FE8 /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
 		3548FE0C2C877EAB00057FE8 /* HttpMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
 		3548FE0E2C877F8C00057FE8 /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
@@ -245,6 +251,9 @@
 				350BF42A2C8B5EA00028891C /* PlayerSearchResponse.swift */,
 				350BF42C2C8B5EC60028891C /* PlayerSearchMatch.swift */,
 				350BF4492C8C18150028891C /* PlayerSearchHistoryRecord.swift */,
+				350BF4542C8E6C130028891C /* PlayerStats.swift */,
+				350BF4562C8E6C6F0028891C /* AccountInfo.swift */,
+				350BF4582C8E6D0E0028891C /* GlobalStats.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -464,6 +473,7 @@
 				35C82D742C82257D008D6047 /* MainTabBar.swift in Sources */,
 				350BF4312C8B60D60028891C /* StatsRepository.swift in Sources */,
 				3548FE2E2C87FB3E00057FE8 /* RegionPicker.swift in Sources */,
+				350BF4572C8E6C6F0028891C /* AccountInfo.swift in Sources */,
 				3548FE232C87A67C00057FE8 /* TournamentsRouter.swift in Sources */,
 				3548FE282C87B9E600057FE8 /* EventWindow.swift in Sources */,
 				3548FE1F2C87A66C00057FE8 /* TournamentsPresenter.swift in Sources */,
@@ -491,8 +501,10 @@
 				35C375C42C8933A5004544FB /* TournamentCollectionViewCell.swift in Sources */,
 				35C375CB2C895169004544FB /* NetworkImageHelper.swift in Sources */,
 				350BF42D2C8B5EC60028891C /* PlayerSearchMatch.swift in Sources */,
+				350BF4592C8E6D0E0028891C /* GlobalStats.swift in Sources */,
 				350BF4512C8E66AD0028891C /* PlayerStatsPresenter.swift in Sources */,
 				350BF4532C8E66B90028891C /* PlayerStatsRouter.swift in Sources */,
+				350BF4552C8E6C130028891C /* PlayerStats.swift in Sources */,
 				350BF4482C8C17EF0028891C /* SearchHistoryRepository.swift in Sources */,
 				3548FE262C87B0DD00057FE8 /* EventsResponse.swift in Sources */,
 				350BF4282C8AAD0E0028891C /* ErrorView.swift in Sources */,

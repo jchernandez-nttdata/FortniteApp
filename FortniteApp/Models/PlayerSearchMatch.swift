@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PlayerSearchMatchDetail: Codable {
+struct PlayerSearchMatchDetail: Decodable {
     let value: String
     let platform: String
 }
