@@ -73,7 +73,7 @@ class PlayerTableViewCell: UITableViewCell {
     }
     
     private func setup() {
-        
+        contentView.backgroundColor = .white
         playerInfoStack.addArrangedSubview(playerNameLabel)
         playerInfoStack.addArrangedSubview(playerPlatformLabel)
         
