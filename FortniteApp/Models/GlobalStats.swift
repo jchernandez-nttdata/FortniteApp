@@ -8,7 +8,6 @@
 import Foundation
 
 struct GlobalStats: Decodable {
-    let trio: ModeStats
     let squad: ModeStats
     let duo: ModeStats
     let solo: ModeStats
