@@ -14,6 +14,9 @@ protocol TournamentsRepositoryProtocol {
     /// - Returns: An array of `Event` model representing the tournaments
     /// - Throws: An error if the network request fails or the data cannot be decoded
     func getTournaments(region: Region) async throws -> [Event]
+    
+    func getWindowDetail(windowId: String, page: Int) async throws -> WindowDetailResponse
+
 }
 
 /// A concrete implementation of the `TournamentsRepositoryProtocol`.
@@ -46,4 +49,16 @@ final class TournamentsRepository: TournamentsRepositoryProtocol {
             throw error
         }
     }
+    
+    func getWindowDetail(windowId: String, page: Int) async throws -> WindowDetailResponse {
+        let queryParams = [
+            URLQueryItem(name: "windowId", value: windowId),
+            URLQueryItem(name: "page", value: String(page))
+        ]
+        
+        let request = Request(endpoint: "events/window", httpMethod: .GET, queryParams: queryParams)
+
+        return try await networkingManager.request(from: request)
+    }
+    
 }
