@@ -22,10 +22,12 @@ final class MainTabBarController: UITabBarController {
         let tournamentsVC = TournamentsRouter.createModule()
         let statsVC = StatsSearchRouter.createModule()
         
-        tournamentsVC.navigationItem.largeTitleDisplayMode = .always
-        statsVC.navigationItem.largeTitleDisplayMode = .always
-                
+        tournamentsVC.navigationItem.largeTitleDisplayMode = .automatic
+        statsVC.navigationItem.largeTitleDisplayMode = .automatic
+        
         let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .white
         appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
         appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black]
         tournamentsVC.navigationItem.standardAppearance = appearance
@@ -45,8 +47,17 @@ final class MainTabBarController: UITabBarController {
             tag: 2
         )
         
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithOpaqueBackground()
+        navBarAppearance.backgroundColor = .white
+        
+        let titleAttribute = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        navBarAppearance.titleTextAttributes = titleAttribute
+        
         tournamentsNav.navigationBar.prefersLargeTitles = true
+        tournamentsNav.navigationBar.standardAppearance = navBarAppearance
         statsNav.navigationBar.prefersLargeTitles = true
+        statsNav.navigationBar.standardAppearance = navBarAppearance
         
         setViewControllers(
             [tournamentsNav,statsNav],

@@ -87,16 +87,7 @@ final class PlayerStatsViewController: UIViewController {
     
     private func setup() {
         view.backgroundColor = .white
-        
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .white
-        
-        let titleAttribute = [NSAttributedString.Key.foregroundColor: UIColor.black]
-        appearance.titleTextAttributes = titleAttribute
-        
-        navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationItem.largeTitleDisplayMode = .never
         
         // back button config
         backButton.addTarget(self, action: #selector(popView), for: .touchUpInside)

@@ -32,6 +32,7 @@ class PlayerTableHeaderView: UITableViewHeaderFooterView {
     }
     
     private func setup() {
+        contentView.backgroundColor = .white
         addSubview(label)
         NSLayoutConstraint.activate([
             label.centerYAnchor.constraint(equalTo: self.centerYAnchor),
