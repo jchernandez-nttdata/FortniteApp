@@ -11,6 +11,7 @@ protocol PlayerStatsView: AnyObject {
     func setupStats(stats: PlayerStats)
     func showLoading()
     func dismissLoading()
+    func showError(title: String, description: String)
 }
 
 final class PlayerStatsViewController: UIViewController {
@@ -69,6 +70,13 @@ final class PlayerStatsViewController: UIViewController {
         return section
     }()
     
+    private let errorView: ErrorView = {
+        let view = ErrorView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isHidden = true
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -102,6 +110,7 @@ final class PlayerStatsViewController: UIViewController {
         contentView.addSubview(soloStats)
         contentView.addSubview(duoStats)
         contentView.addSubview(squadStats)
+        view.addSubview(errorView)
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -135,6 +144,11 @@ final class PlayerStatsViewController: UIViewController {
             squadStats.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             squadStats.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             squadStats.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
+            
+            errorView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            errorView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            errorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            errorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
     }
     
@@ -185,4 +199,13 @@ extension PlayerStatsViewController: PlayerStatsView {
             self.squadStats.hideLoading()
         }
     }
+    
+    func showError(title: String, description: String) {
+        DispatchQueue.main.async {
+            self.errorView.isHidden = false
+            self.errorView.setup(title: title, description: description)
+            self.scrollView.isHidden = true
+        }
+    }
+    
 }

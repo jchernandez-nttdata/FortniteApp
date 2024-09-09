@@ -38,7 +38,7 @@ extension PlayerStatsPresenter: PlayerStatsPresenterProtocol {
                 view.setupStats(stats: playerStats)
             } catch {
                 view.dismissLoading()
-                print(error.localizedDescription)
+                view.showError(title: "Something went wrong", description: "The player’s profile might be private or there was an error processing your request. Please try again later.")
             }
         }
         
