@@ -9,6 +9,8 @@ import Foundation
 
 protocol TournamentDetailPresenterProtocol {
     var event: Event { get }
+    
+    func handleViewDidLoad()
 }
 
 final class TournamentDetailPresenter {
@@ -17,6 +19,7 @@ final class TournamentDetailPresenter {
     var interactor: TournamentDetailInteractorProtocol!
     
     internal var event: Event
+    private var windowDetail: WindowDetailResponse?
     
     init(event: Event) {
         self.event = event
@@ -24,5 +27,16 @@ final class TournamentDetailPresenter {
 }
 
 extension TournamentDetailPresenter: TournamentDetailPresenterProtocol {
+    func handleViewDidLoad() {
+        Task {
+            do {
+                windowDetail = try await interactor.getWindowDetail(windowId: event.currentOrNextWindowEvent?.windowId ?? event.windows.first!.windowId, page: 0)
+                print(windowDetail!)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     
 }
