@@ -10,7 +10,7 @@ import Foundation
 /// An enumeration representing possible errors that can occur during network operations.
 enum NetworkingError: Error {
     case invalidURL
-    case requestFailed(statusCode: Int)
+    case requestFailed(statusCode: Int?)
     case decodeFailure
     case invalidResponse
     case serverError(description: String)

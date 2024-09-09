@@ -18,7 +18,7 @@ final class PlayerStatsPresenter {
     var interactor: PlayerStatsInteractorProtocol!
     
     let accountId: String
-    var playerStats: PlayerStats?
+    private var playerStats: PlayerStats?
     
     init(accountId: String) {
         self.accountId = accountId
@@ -30,7 +30,10 @@ extension PlayerStatsPresenter: PlayerStatsPresenterProtocol {
         Task {
             do {
                 playerStats = try await interactor.getPlayerStats(accountId: accountId)
-                print(playerStats)
+                guard let playerStats else {
+                    throw NetworkingError.requestFailed(statusCode: nil)
+                }
+                view.setupStats(stats: playerStats)
             } catch {
                 print(error.localizedDescription)
             }

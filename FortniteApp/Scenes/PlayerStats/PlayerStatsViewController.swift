@@ -8,7 +8,7 @@
 import UIKit
 
 protocol PlayerStatsView: AnyObject {
-    
+    func setupStats(stats: PlayerStats)
 }
 
 final class PlayerStatsViewController: UIViewController {
@@ -52,21 +52,18 @@ final class PlayerStatsViewController: UIViewController {
     
     private let soloStats: StatsSectionView = {
         let section = StatsSectionView()
-        section.setup(sectionTitle: "Solo", stats: ModeStats(placetop1: 10, kd: 3.0, matchesplayed: 30, minutesplayed: 1340))
         section.translatesAutoresizingMaskIntoConstraints = false
         return section
     }()
     
     private let duoStats: StatsSectionView = {
         let section = StatsSectionView()
-        section.setup(sectionTitle: "Duo", stats: ModeStats(placetop1: 10, kd: 3.0, matchesplayed: 30, minutesplayed: 1340))
         section.translatesAutoresizingMaskIntoConstraints = false
         return section
     }()
     
     private let squadStats: StatsSectionView = {
         let section = StatsSectionView()
-        section.setup(sectionTitle: "Squad", stats: ModeStats(placetop1: 10, kd: 3.0, matchesplayed: 30, minutesplayed: 1340))
         section.translatesAutoresizingMaskIntoConstraints = false
         return section
     }()
@@ -83,14 +80,6 @@ final class PlayerStatsViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = false
         
         // back button config
-        let title = NSAttributedString(
-            string: "Ninja",
-            attributes: [
-                NSAttributedString.Key.foregroundColor: UIColor.black,
-                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 36, weight: .bold)
-            ]
-        )
-        backButton.setAttributedTitle(title,for: .normal)
         backButton.addTarget(self, action: #selector(popView), for: .touchUpInside)
         let barButton = UIBarButtonItem(customView: backButton)
         navigationItem.leftBarButtonItem = barButton
@@ -146,5 +135,17 @@ final class PlayerStatsViewController: UIViewController {
 
 
 extension PlayerStatsViewController: PlayerStatsView {
+    func setupStats(stats: PlayerStats) {
+        DispatchQueue.main.async {
+            // title setup
+            self.title = stats.name
+            
+            // stats setup
+            self.soloStats.setup(sectionTitle: "Solo", stats: stats.global_stats.solo)
+            self.duoStats.setup(sectionTitle: "Duo", stats: stats.global_stats.duo)
+            self.squadStats.setup(sectionTitle: "Squads", stats: stats.global_stats.squad)
+        }
+    }
+    
     
 }

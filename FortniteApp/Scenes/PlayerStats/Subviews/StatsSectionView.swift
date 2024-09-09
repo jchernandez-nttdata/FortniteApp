@@ -100,7 +100,7 @@ class StatsSectionView: UIView {
         sectionTitleLabel.text = sectionTitle
         kdStatCard.setup(iconResource: .shotIcon, value: String(stats.kd), title: "Kill / deaths")
         victoriesStatCard.setup(iconResource: .victoryIcon, value: String(stats.placetop1), title: "Victory royales")
-        matchesStatCard.setup(iconResource: .pickaxeIcon, value: String(stats.kd), title: "Matches played")
+        matchesStatCard.setup(iconResource: .pickaxeIcon, value: String(stats.matchesplayed), title: "Matches played")
         hoursStatCard.setup(iconResource: .controllerIcon, value: String(stats.hoursPlayed), title: "Hours played")
     }
 }
