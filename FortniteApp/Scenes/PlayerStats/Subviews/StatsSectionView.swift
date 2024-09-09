@@ -66,6 +66,7 @@ class StatsSectionView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
+        setupSkeleton()
     }
     
     required init?(coder: NSCoder) {
@@ -96,11 +97,32 @@ class StatsSectionView: UIView {
         ])
     }
     
+    private func setupSkeleton() {
+        kdStatCard.isSkeletonable = true
+        victoriesStatCard.isSkeletonable = true
+        matchesStatCard.isSkeletonable = true
+        hoursStatCard.isSkeletonable = true
+    }
+    
     func setup(sectionTitle: String, stats: ModeStats) {
         sectionTitleLabel.text = sectionTitle
         kdStatCard.setup(iconResource: .shotIcon, value: String(stats.kd), title: "Kill / deaths")
         victoriesStatCard.setup(iconResource: .victoryIcon, value: String(stats.placetop1), title: "Victory royales")
         matchesStatCard.setup(iconResource: .pickaxeIcon, value: String(stats.matchesplayed), title: "Matches played")
         hoursStatCard.setup(iconResource: .controllerIcon, value: String(stats.hoursPlayed), title: "Hours played")
+    }
+        
+    func showLoading() {
+        kdStatCard.showAnimatedSkeleton(usingColor: .lightGray)
+        victoriesStatCard.showAnimatedSkeleton(usingColor: .lightGray)
+        matchesStatCard.showAnimatedSkeleton(usingColor: .lightGray)
+        hoursStatCard.showAnimatedSkeleton(usingColor: .lightGray)
+    }
+    
+    func hideLoading() {
+        kdStatCard.hideSkeleton()
+        victoriesStatCard.hideSkeleton()
+        matchesStatCard.hideSkeleton()
+        hoursStatCard.hideSkeleton()
     }
 }

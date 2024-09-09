@@ -48,8 +48,6 @@ final class MainTabBarController: UITabBarController {
         tournamentsNav.navigationBar.prefersLargeTitles = true
         statsNav.navigationBar.prefersLargeTitles = true
         
-        
-        
         setViewControllers(
             [tournamentsNav,statsNav],
             animated: true

@@ -9,6 +9,8 @@ import UIKit
 
 protocol PlayerStatsView: AnyObject {
     func setupStats(stats: PlayerStats)
+    func showLoading()
+    func dismissLoading()
 }
 
 final class PlayerStatsViewController: UIViewController {
@@ -46,7 +48,6 @@ final class PlayerStatsViewController: UIViewController {
     private let levelLabel: TitleValueLabel = {
         let label = TitleValueLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.setup(title: "Account level: ", value: "21")
         return label
     }()
     
@@ -71,12 +72,22 @@ final class PlayerStatsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        setupSkeleton()
         presenter.handleViewDidLoad()
 
     }
     
     private func setup() {
         view.backgroundColor = .white
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .white
+        
+        let titleAttribute = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        appearance.titleTextAttributes = titleAttribute
+        
+        navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.prefersLargeTitles = false
         
         // back button config
@@ -127,6 +138,11 @@ final class PlayerStatsViewController: UIViewController {
         ])
     }
     
+    private func setupSkeleton() {
+        imageSectionView.isSkeletonable = true
+        levelLabel.isSkeletonable = true
+    }
+    
     @objc private func popView() {
         //TODO: Handle in router
         navigationController?.popViewController(animated: true)
@@ -140,6 +156,9 @@ extension PlayerStatsViewController: PlayerStatsView {
             // title setup
             self.title = stats.name
             
+            // level setup
+            self.levelLabel.setup(title: "Account level: ", value: String(stats.account.level))
+            
             // stats setup
             self.soloStats.setup(sectionTitle: "Solo", stats: stats.global_stats.solo)
             self.duoStats.setup(sectionTitle: "Duo", stats: stats.global_stats.duo)
@@ -147,5 +166,23 @@ extension PlayerStatsViewController: PlayerStatsView {
         }
     }
     
+    func showLoading() {
+        DispatchQueue.main.async {
+            self.imageSectionView.showAnimatedSkeleton(usingColor: .lightGray)
+            self.levelLabel.showAnimatedSkeleton(usingColor: .lightGray)
+            self.soloStats.showLoading()
+            self.duoStats.showLoading()
+            self.squadStats.showLoading()
+        }
+    }
     
+    func dismissLoading() {
+        DispatchQueue.main.async {
+            self.imageSectionView.hideSkeleton()
+            self.levelLabel.hideSkeleton()
+            self.soloStats.hideLoading()
+            self.duoStats.hideLoading()
+            self.squadStats.hideLoading()
+        }
+    }
 }

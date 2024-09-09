@@ -27,14 +27,17 @@ final class PlayerStatsPresenter {
 
 extension PlayerStatsPresenter: PlayerStatsPresenterProtocol {
     func handleViewDidLoad() {
+        view.showLoading()
         Task {
             do {
                 playerStats = try await interactor.getPlayerStats(accountId: accountId)
+                view.dismissLoading()
                 guard let playerStats else {
                     throw NetworkingError.requestFailed(statusCode: nil)
                 }
                 view.setupStats(stats: playerStats)
             } catch {
+                view.dismissLoading()
                 print(error.localizedDescription)
             }
         }
