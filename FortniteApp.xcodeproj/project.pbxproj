@@ -35,6 +35,8 @@
 		350BF45C2C8EB02F0028891C /* ImageSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF45B2C8EB02F0028891C /* ImageSectionView.swift */; };
 		350BF45E2C8EB5800028891C /* TitleValueLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF45D2C8EB5800028891C /* TitleValueLabel.swift */; };
 		350BF4602C8EB6400028891C /* UIView+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF45F2C8EB6400028891C /* UIView+extensions.swift */; };
+		350BF4622C8EB9E60028891C /* StatsSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF4612C8EB9E60028891C /* StatsSectionView.swift */; };
+		350BF4642C8EBA400028891C /* StatCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF4632C8EBA400028891C /* StatCard.swift */; };
 		3548FE0A2C877D3400057FE8 /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3548FE092C877D3400057FE8 /* NetworkingManager.swift */; };
 		3548FE0D2C877EAB00057FE8 /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3548FE0C2C877EAB00057FE8 /* HttpMethod.swift */; };
 		3548FE0F2C877F8C00057FE8 /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3548FE0E2C877F8C00057FE8 /* APIConstants.swift */; };
@@ -92,6 +94,8 @@
 		350BF45B2C8EB02F0028891C /* ImageSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSectionView.swift; sourceTree = "<group>"; };
 		350BF45D2C8EB5800028891C /* TitleValueLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleValueLabel.swift; sourceTree = "<group>"; };
 		350BF45F2C8EB6400028891C /* UIView+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+extensions.swift"; sourceTree = "<group>"; };
+		350BF4612C8EB9E60028891C /* StatsSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsSectionView.swift; sourceTree = "<group>"; };
+		350BF4632C8EBA400028891C /* StatCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatCard.swift; sourceTree = "<group>"; };
 		3548FE092C877D3400057FE8 /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
 		3548FE0C2C877EAB00057FE8 /* HttpMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
 		3548FE0E2C877F8C00057FE8 /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
@@ -199,6 +203,8 @@
 			isa = PBXGroup;
 			children = (
 				350BF45B2C8EB02F0028891C /* ImageSectionView.swift */,
+				350BF4612C8EB9E60028891C /* StatsSectionView.swift */,
+				350BF4632C8EBA400028891C /* StatCard.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -509,8 +515,10 @@
 				350BF44D2C8E66980028891C /* PlayerStatsViewController.swift in Sources */,
 				350BF41B2C8A6C7E0028891C /* TournamentDetailViewController.swift in Sources */,
 				350BF4212C8A6CA70028891C /* TournamentDetailInteractor.swift in Sources */,
+				350BF4622C8EB9E60028891C /* StatsSectionView.swift in Sources */,
 				3548FE1B2C879D5800057FE8 /* StatsSearchInteractor.swift in Sources */,
 				350BF45C2C8EB02F0028891C /* ImageSectionView.swift in Sources */,
+				350BF4642C8EBA400028891C /* StatCard.swift in Sources */,
 				3548FE0A2C877D3400057FE8 /* NetworkingManager.swift in Sources */,
 				35C375BE2C88F7DE004544FB /* TournamentsRepository.swift in Sources */,
 				3548FE192C879D5200057FE8 /* StatsSearchPresenter.swift in Sources */,

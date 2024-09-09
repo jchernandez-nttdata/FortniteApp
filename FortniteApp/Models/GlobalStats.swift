@@ -19,4 +19,9 @@ struct ModeStats: Decodable {
     let kd: Double
     let matchesplayed: Int
     let minutesplayed: Int
+    
+    var hoursPlayed: Double {
+        let hours = Double(self.minutesplayed) / 60
+        return round(hours * 10) / 10
+    }
 }
