@@ -33,19 +33,20 @@ final class TournamentsViewController: UIViewController {
         return collectionView
     }()
     
-    private let seasonLabel: UILabel = {
-        let label = UILabel()
+    private let seasonLabel: TitleValueLabel = {
+        let label = TitleValueLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Current season: Chapter 5 Season 4"
-        label.textColor = .black
+        label.setup(title: "Current season:", value: "Chapter 5 Season 4")
         return label
     }()
     
     private let regionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Region:"
-        label.textColor = .black
+        label.attributedText = NSAttributedString(string: "Region:", attributes: [
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .bold),
+            NSAttributedString.Key.foregroundColor: UIColor.black
+        ])
         return label
     }()
     
