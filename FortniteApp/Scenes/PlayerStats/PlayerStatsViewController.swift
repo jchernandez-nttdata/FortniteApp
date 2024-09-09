@@ -158,8 +158,7 @@ final class PlayerStatsViewController: UIViewController {
     }
     
     @objc private func popView() {
-        //TODO: Handle in router
-        navigationController?.popViewController(animated: true)
+        presenter.handleBackButtonPressed()
     }
 }
 

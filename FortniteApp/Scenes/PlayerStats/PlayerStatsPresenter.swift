@@ -10,6 +10,7 @@ import Foundation
 
 protocol PlayerStatsPresenterProtocol {
     func handleViewDidLoad()
+    func handleBackButtonPressed()
 }
 
 final class PlayerStatsPresenter {
@@ -44,4 +45,7 @@ extension PlayerStatsPresenter: PlayerStatsPresenterProtocol {
         
     }
     
+    func handleBackButtonPressed() {
+        router.routePop()
+    }
 }

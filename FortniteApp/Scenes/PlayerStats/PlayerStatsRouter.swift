@@ -8,11 +8,11 @@
 import UIKit
 
 protocol PlayerStatsRouterProtocol {
-    
+    func routePop()
 }
 
 final class PlayerStatsRouter {
-    unowned var viewController: PlayerStatsView!
+    unowned var viewController: UIViewController!
     
     static func createModule(accountId: String) -> UIViewController {
         let viewController = PlayerStatsViewController()
@@ -32,5 +32,9 @@ final class PlayerStatsRouter {
 
 
 extension PlayerStatsRouter: PlayerStatsRouterProtocol {
+    func routePop() {
+        viewController.navigationController?.popViewController(animated: true)
+    }
+    
     
 }
