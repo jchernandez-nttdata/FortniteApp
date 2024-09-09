@@ -15,7 +15,7 @@ class ImageSectionView: UIView {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.backgroundColor = .tertiaryLabel
+        imageView.backgroundColor = .lightGray.withAlphaComponent(0.5)
         return imageView
     }()
     
