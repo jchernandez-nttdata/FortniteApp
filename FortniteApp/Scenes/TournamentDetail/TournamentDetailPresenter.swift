@@ -16,6 +16,7 @@ protocol TournamentDetailPresenterProtocol {
     
     func handleViewDidLoad()
     func handleWindowSelect(at index: Int)
+    func handleBackButtonTap()
 }
 
 final class TournamentDetailPresenter {
@@ -63,13 +64,20 @@ extension TournamentDetailPresenter: TournamentDetailPresenterProtocol {
         }
     }
     
+    func handleBackButtonTap() {
+        router.routePop()
+    }
+    
     private func loadWindowDetail(windowId: String) {
+        view.showLoading()
         Task {
             do {
                 windowDetail = try await interactor.getWindowDetail(windowId: windowId, page: 0)
                 view.setupEventDetails()
                 view.reloadWindowData()
+                view.dismissLoading()
             } catch {
+                view.dismissLoading()
                 print(error.localizedDescription)
             }
         }

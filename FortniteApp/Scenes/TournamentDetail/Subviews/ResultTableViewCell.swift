@@ -89,6 +89,7 @@ class ResultTableViewCell: UITableViewCell {
     
     private func setup() {
         contentView.backgroundColor = .white
+        isSkeletonable = true
         playerStackView.addArrangedSubview(playerTitleLabel)
         playerStackView.addArrangedSubview(playerValueLabel)
         pointsStackView.addArrangedSubview(pointsTitleLabel)

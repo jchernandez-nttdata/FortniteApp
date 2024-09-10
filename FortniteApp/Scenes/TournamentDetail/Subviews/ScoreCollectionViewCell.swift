@@ -49,6 +49,7 @@ class ScoreCollectionViewCell: UICollectionViewCell {
     
     private func setup() {
         backgroundColor = .lightGray.withAlphaComponent(0.5)
+        isSkeletonable = true
         contentView.addSubview(titleLabel)
         contentView.addSubview(pointsLabel)
         

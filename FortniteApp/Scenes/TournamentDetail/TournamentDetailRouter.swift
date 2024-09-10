@@ -8,7 +8,7 @@
 import UIKit
 
 protocol TournamentDetailRouterProtocol {
-    
+    func routePop()
 }
 
 final class TournamentDetailRouter {
@@ -31,5 +31,9 @@ final class TournamentDetailRouter {
 }
 
 extension TournamentDetailRouter: TournamentDetailRouterProtocol {
+    func routePop() {
+        viewController.navigationController?.popViewController(animated: true)
+    }
+    
     
 }

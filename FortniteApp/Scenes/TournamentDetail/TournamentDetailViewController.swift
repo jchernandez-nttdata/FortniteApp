@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import SkeletonView
 
 protocol TournamentDetailView: AnyObject {
     func setupEventDetails()
     func reloadWindowData()
+    func showLoading()
+    func dismissLoading()
 }
 
 final class TournamentDetailViewController: UIViewController {
@@ -81,6 +84,7 @@ final class TournamentDetailViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.isSkeletonable = true
         
         collectionView.register(ScoreCollectionViewCell.self, forCellWithReuseIdentifier: ScoreCollectionViewCell.identifier)
         return collectionView
@@ -100,6 +104,7 @@ final class TournamentDetailViewController: UIViewController {
         tableView.sectionHeaderTopPadding = 0
         tableView.register(ResultTableViewCell.self, forCellReuseIdentifier: ResultTableViewCell.identifier)
         tableView.isScrollEnabled = false
+        tableView.isSkeletonable = true
         return tableView
     }()
     
@@ -182,8 +187,7 @@ final class TournamentDetailViewController: UIViewController {
     }
     
     @objc private func popView() {
-        //TODO: Handle in router
-        navigationController?.popViewController(animated: true)
+        presenter.handleBackButtonTap()
     }
 }
 
@@ -203,6 +207,20 @@ extension TournamentDetailViewController: TournamentDetailView {
             
             let eachElimination = "+\(self.presenter.windowEliminationValue ?? 0) points"
             self.eliminationsLabel.setup(title: "Each elimination", value: String(eachElimination))
+        }
+    }
+    
+    func showLoading() {
+        DispatchQueue.main.async {
+            self.scoringCollectionView.showAnimatedSkeleton(usingColor: .lightGray)
+            self.resultsTableView.showAnimatedSkeleton(usingColor: .lightGray)
+        }
+    }
+    
+    func dismissLoading() {
+        DispatchQueue.main.async {
+            self.scoringCollectionView.hideSkeleton()
+            self.resultsTableView.hideSkeleton()
         }
     }
 }
@@ -262,7 +280,6 @@ extension TournamentDetailViewController: UICollectionViewDataSource, UICollecti
 }
 
 // MARK: - Results table view config
-
 extension TournamentDetailViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         presenter.windowResults.count
@@ -274,4 +291,36 @@ extension TournamentDetailViewController: UITableViewDelegate, UITableViewDataSo
         cell?.setup(position: resultItem.rank, playerName: resultItem.teamNamesString, points: resultItem.pointsEarned)
         return cell ?? UITableViewCell()
     }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        presenter.windowResults.isEmpty ? nil : "Results"
+    }
+}
+
+// MARK: - Skeleton view configuration
+extension TournamentDetailViewController: SkeletonTableViewDataSource, SkeletonTableViewDelegate,  SkeletonCollectionViewDataSource, SkeletonCollectionViewDelegate {
+    
+    // Results table view sekeleton configuration
+    func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        7
+    }
+    
+    func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        ResultTableViewCell.identifier
+    }
+    
+    // Window and score collection view sekeleton configuration
+    func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> SkeletonView.ReusableCellIdentifier {
+        switch skeletonView {
+        case scoringCollectionView:
+            ScoreCollectionViewCell.identifier
+        default:
+            fatalError()
+        }
+    }
+    
+    func collectionSkeletonView(_ skeletonView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+    
 }
