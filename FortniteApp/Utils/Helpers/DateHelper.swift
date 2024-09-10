@@ -26,4 +26,20 @@ struct DateHelper {
             return "in \(days) day" + (days == 1 ? "" : "s")
         }
     }
+    
+    static func getFormattedDateString(from date: Date) -> String {
+        let formatted = DateFormatter()
+        formatted.dateFormat = "dd/MM/yyyy"
+        formatted.timeZone = TimeZone.current
+        
+        return formatted.string(from: date)
+    }
+    
+    static func getFormattedTimeString(from date: Date) -> String {
+        let formatted = DateFormatter()
+        formatted.dateFormat = "HH:mm"
+        formatted.timeZone = TimeZone.current
+        
+        return formatted.string(from: date)
+    }
 }
