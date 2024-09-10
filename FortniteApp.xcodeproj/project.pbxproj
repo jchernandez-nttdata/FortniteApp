@@ -12,6 +12,12 @@
 		3500B2C52C8F991000F6D7EE /* WindowRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3500B2C42C8F991000F6D7EE /* WindowRules.swift */; };
 		3500B2C72C8FA69400F6D7EE /* ScoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3500B2C62C8FA69400F6D7EE /* ScoreType.swift */; };
 		3500B2C92C8FA76700F6D7EE /* WindowScoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3500B2C82C8FA76700F6D7EE /* WindowScoring.swift */; };
+		3500B2CC2C8FC18E00F6D7EE /* EventImageSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3500B2CB2C8FC18E00F6D7EE /* EventImageSectionView.swift */; };
+		3500B2D02C8FF30100F6D7EE /* WindowCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3500B2CF2C8FF30100F6D7EE /* WindowCollectionViewCell.swift */; };
+		3500B2D22C90A53E00F6D7EE /* ScoreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3500B2D12C90A53E00F6D7EE /* ScoreCollectionViewCell.swift */; };
+		3500B2D42C90B66900F6D7EE /* ResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3500B2D32C90B66900F6D7EE /* ResultTableViewCell.swift */; };
+		3500B2D62C90C63000F6D7EE /* SelfSizedTablewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3500B2D52C90C63000F6D7EE /* SelfSizedTablewView.swift */; };
+		3500B2D82C90C6BE00F6D7EE /* WindowResultItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3500B2D72C90C6BE00F6D7EE /* WindowResultItem.swift */; };
 		350BF4182C8A5BAE0028891C /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF4172C8A5BAE0028891C /* DateHelper.swift */; };
 		350BF41B2C8A6C7E0028891C /* TournamentDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF41A2C8A6C7E0028891C /* TournamentDetailViewController.swift */; };
 		350BF41D2C8A6C870028891C /* TournamentDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BF41C2C8A6C870028891C /* TournamentDetailPresenter.swift */; };
@@ -78,6 +84,12 @@
 		3500B2C42C8F991000F6D7EE /* WindowRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowRules.swift; sourceTree = "<group>"; };
 		3500B2C62C8FA69400F6D7EE /* ScoreType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreType.swift; sourceTree = "<group>"; };
 		3500B2C82C8FA76700F6D7EE /* WindowScoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowScoring.swift; sourceTree = "<group>"; };
+		3500B2CB2C8FC18E00F6D7EE /* EventImageSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventImageSectionView.swift; sourceTree = "<group>"; };
+		3500B2CF2C8FF30100F6D7EE /* WindowCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowCollectionViewCell.swift; sourceTree = "<group>"; };
+		3500B2D12C90A53E00F6D7EE /* ScoreCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCollectionViewCell.swift; sourceTree = "<group>"; };
+		3500B2D32C90B66900F6D7EE /* ResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultTableViewCell.swift; sourceTree = "<group>"; };
+		3500B2D52C90C63000F6D7EE /* SelfSizedTablewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfSizedTablewView.swift; sourceTree = "<group>"; };
+		3500B2D72C90C6BE00F6D7EE /* WindowResultItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowResultItem.swift; sourceTree = "<group>"; };
 		350BF4172C8A5BAE0028891C /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		350BF41A2C8A6C7E0028891C /* TournamentDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentDetailViewController.swift; sourceTree = "<group>"; };
 		350BF41C2C8A6C870028891C /* TournamentDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentDetailPresenter.swift; sourceTree = "<group>"; };
@@ -151,9 +163,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3500B2CA2C8FC0B000F6D7EE /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				3500B2CB2C8FC18E00F6D7EE /* EventImageSectionView.swift */,
+				3500B2CF2C8FF30100F6D7EE /* WindowCollectionViewCell.swift */,
+				3500B2D12C90A53E00F6D7EE /* ScoreCollectionViewCell.swift */,
+				3500B2D32C90B66900F6D7EE /* ResultTableViewCell.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
 		350BF4192C8A6C660028891C /* TournamentDetail */ = {
 			isa = PBXGroup;
 			children = (
+				3500B2CA2C8FC0B000F6D7EE /* Subviews */,
 				350BF41A2C8A6C7E0028891C /* TournamentDetailViewController.swift */,
 				350BF41C2C8A6C870028891C /* TournamentDetailPresenter.swift */,
 				350BF41E2C8A6C9D0028891C /* TournamentDetailRouter.swift */,
@@ -167,6 +191,7 @@
 			children = (
 				350BF4272C8AAD0E0028891C /* ErrorView.swift */,
 				350BF45D2C8EB5800028891C /* TitleValueLabel.swift */,
+				3500B2D52C90C63000F6D7EE /* SelfSizedTablewView.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -290,6 +315,7 @@
 				350BF4582C8E6D0E0028891C /* GlobalStats.swift */,
 				3500B2C02C8F977F00F6D7EE /* WindowDetailResponse.swift */,
 				3500B2C22C8F97EE00F6D7EE /* WindowDetail.swift */,
+				3500B2D72C90C6BE00F6D7EE /* WindowResultItem.swift */,
 				3500B2C42C8F991000F6D7EE /* WindowRules.swift */,
 				3500B2C82C8FA76700F6D7EE /* WindowScoring.swift */,
 			);
@@ -509,6 +535,8 @@
 				3500B2C32C8F97EE00F6D7EE /* WindowDetail.swift in Sources */,
 				35C82D8D2C822C27008D6047 /* TournamentsViewController.swift in Sources */,
 				3548FE1D2C879D5F00057FE8 /* StatsSearchRouter.swift in Sources */,
+				3500B2D22C90A53E00F6D7EE /* ScoreCollectionViewCell.swift in Sources */,
+				3500B2CC2C8FC18E00F6D7EE /* EventImageSectionView.swift in Sources */,
 				35C82D742C82257D008D6047 /* MainTabBar.swift in Sources */,
 				3500B2C52C8F991000F6D7EE /* WindowRules.swift in Sources */,
 				350BF4312C8B60D60028891C /* StatsRepository.swift in Sources */,
@@ -520,6 +548,7 @@
 				35C82D702C82257D008D6047 /* AppDelegate.swift in Sources */,
 				3548FE212C87A67500057FE8 /* TournamentsInteractor.swift in Sources */,
 				35C375CD2C8952C4004544FB /* ImageCacheError.swift in Sources */,
+				3500B2D42C90B66900F6D7EE /* ResultTableViewCell.swift in Sources */,
 				3548FE0D2C877EAB00057FE8 /* HttpMethod.swift in Sources */,
 				350BF41D2C8A6C870028891C /* TournamentDetailPresenter.swift in Sources */,
 				350BF44A2C8C18150028891C /* PlayerSearchHistoryRecord.swift in Sources */,
@@ -546,10 +575,12 @@
 				35C375C62C893C62004544FB /* TournamentsSection.swift in Sources */,
 				35C82D8A2C822C0C008D6047 /* StatsSearchViewController.swift in Sources */,
 				3500B2C92C8FA76700F6D7EE /* WindowScoring.swift in Sources */,
+				3500B2D02C8FF30100F6D7EE /* WindowCollectionViewCell.swift in Sources */,
 				35C375C42C8933A5004544FB /* TournamentCollectionViewCell.swift in Sources */,
 				35C375CB2C895169004544FB /* NetworkImageHelper.swift in Sources */,
 				350BF42D2C8B5EC60028891C /* PlayerSearchMatch.swift in Sources */,
 				350BF4592C8E6D0E0028891C /* GlobalStats.swift in Sources */,
+				3500B2D82C90C6BE00F6D7EE /* WindowResultItem.swift in Sources */,
 				350BF4512C8E66AD0028891C /* PlayerStatsPresenter.swift in Sources */,
 				350BF4532C8E66B90028891C /* PlayerStatsRouter.swift in Sources */,
 				350BF4552C8E6C130028891C /* PlayerStats.swift in Sources */,
@@ -557,6 +588,7 @@
 				3548FE262C87B0DD00057FE8 /* EventsResponse.swift in Sources */,
 				350BF4282C8AAD0E0028891C /* ErrorView.swift in Sources */,
 				35C375C02C88F837004544FB /* Region.swift in Sources */,
+				3500B2D62C90C63000F6D7EE /* SelfSizedTablewView.swift in Sources */,
 				350BF4182C8A5BAE0028891C /* DateHelper.swift in Sources */,
 				350BF4442C8C13B90028891C /* LocalDataManager.swift in Sources */,
 				350BF43E2C8C0DA40028891C /* PlayerTableHeaderView.swift in Sources */,
