@@ -8,6 +8,8 @@
 import UIKit
 
 final class TitleValueLabel: UIView {
+    var isTitleBold: Bool = true
+    
     private let label: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -30,11 +32,11 @@ final class TitleValueLabel: UIView {
     
     func setup(title: String, value: String) {
         let attributedString = NSMutableAttributedString(string: title, attributes: [
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .bold),
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: isTitleBold ? .bold : .regular),
             NSAttributedString.Key.foregroundColor: UIColor.black
         ])
         let regularString = NSAttributedString(string: " \(value)", attributes: [
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .regular),
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: isTitleBold ? .regular : .bold),
             NSAttributedString.Key.foregroundColor: UIColor.black
         ])
         attributedString.append(regularString)
