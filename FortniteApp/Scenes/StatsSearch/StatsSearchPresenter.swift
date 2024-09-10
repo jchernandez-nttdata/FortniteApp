@@ -23,8 +23,8 @@ final class StatsSearchPresenter {
     var interactor: StatsSearchInteractorProtocol!
     var router: StatsSearchRouterProtocol!
     
-    internal var playerMatches: [PlayerSearchMatch] = []
-    internal var searchHistory: [PlayerSearchHistoryRecord] = []
+    var playerMatches: [PlayerSearchMatch] = []
+    var searchHistory: [PlayerSearchHistoryRecord] = []
     
 }
 

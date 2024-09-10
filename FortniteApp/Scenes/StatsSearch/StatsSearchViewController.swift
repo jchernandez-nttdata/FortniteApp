@@ -65,6 +65,7 @@ final class StatsSearchViewController: UIViewController {
         return textField
     }()
     
+    // TODO: use only one table view
     private let searchTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .clear
@@ -165,8 +166,8 @@ final class StatsSearchViewController: UIViewController {
     }
     
     @objc private func onSearchFieldChanged(_ textField: UITextField) {
-        searchDebouncer.run {
-            self.presenter.handleSearchQueryChanged(query: textField.text ?? "")
+        searchDebouncer.run { [weak self] in
+            self?.presenter.handleSearchQueryChanged(query: textField.text ?? "")
         }
     }
 
