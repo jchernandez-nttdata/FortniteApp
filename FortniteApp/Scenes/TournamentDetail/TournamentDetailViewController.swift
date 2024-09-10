@@ -157,8 +157,8 @@ final class TournamentDetailViewController: UIViewController {
             descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             
             windowsCollectionView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 20),
-            windowsCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            windowsCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            windowsCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            windowsCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             windowsCollectionView.heightAnchor.constraint(equalToConstant: 100),
             
             scoringTitleLabel.topAnchor.constraint(equalTo: windowsCollectionView.bottomAnchor, constant: 30),
@@ -166,8 +166,8 @@ final class TournamentDetailViewController: UIViewController {
             scoringTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             
             scoringCollectionView.topAnchor.constraint(equalTo: scoringTitleLabel.bottomAnchor, constant: 10),
-            scoringCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            scoringCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            scoringCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            scoringCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             scoringCollectionView.heightAnchor.constraint(equalToConstant: 80),
             
             eliminationsLabel.topAnchor.constraint(equalTo: scoringCollectionView.bottomAnchor, constant: 15),
@@ -197,6 +197,7 @@ extension TournamentDetailViewController: TournamentDetailView {
     
     func reloadWindowData() {
         DispatchQueue.main.async {
+            self.windowsCollectionView.reloadData()
             self.scoringCollectionView.reloadData()
             self.resultsTableView.reloadData()
             
@@ -224,7 +225,7 @@ extension TournamentDetailViewController: UICollectionViewDataSource, UICollecti
         case windowsCollectionView:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WindowCollectionViewCell.identifier, for: indexPath) as? WindowCollectionViewCell
             let window = presenter.event.sortedWindows[indexPath.row]
-            cell?.setup(isActive: true, session: indexPath.row, startDate: window.beginTime, endDate: window.endTime)
+            cell?.setup(isActive: window.windowId == presenter.selectedWindow!.windowId, session: indexPath.row + 1, startDate: window.beginTime, endDate: window.endTime)
             return cell ?? UICollectionViewCell()
         case scoringCollectionView:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ScoreCollectionViewCell.identifier, for: indexPath) as? ScoreCollectionViewCell
@@ -247,6 +248,15 @@ extension TournamentDetailViewController: UICollectionViewDataSource, UICollecti
             CGSize(width: 130, height: 70)
         default:
             fatalError()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch collectionView {
+        case windowsCollectionView:
+            presenter.handleWindowSelect(at: indexPath.row)
+        default:
+            break
         }
     }
 }

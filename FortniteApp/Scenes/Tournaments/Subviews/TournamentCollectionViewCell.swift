@@ -15,6 +15,7 @@ class TournamentCollectionViewCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.backgroundColor = .lightGray.withAlphaComponent(0.5)
         return imageView
     }()
     
@@ -106,6 +107,11 @@ class TournamentCollectionViewCell: UICollectionViewCell {
                         self?.posterImageView.hideSkeleton()
                     }
                 }
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.posterImageView.image = UIImage(resource: .defaultEvent)
+                self.posterImageView.hideSkeleton()
             }
         }
         

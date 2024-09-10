@@ -60,10 +60,14 @@ class WindowCollectionViewCell: UICollectionViewCell {
         sessionLabel.text = ""
         dateLabel.text = ""
         timeLabel.text = ""
+        backgroundColor = .lightGray.withAlphaComponent(0.5)
+        sessionLabel.textColor = .black
+        dateLabel.textColor = .black
+        timeLabel.textColor = .black
     }
     
     private func setup() {
-        backgroundColor = .lightGray
+        backgroundColor = .lightGray.withAlphaComponent(0.5)
         contentView.addSubview(stackView)
         stackView.addArrangedSubview(sessionLabel)
         stackView.addArrangedSubview(dateLabel)

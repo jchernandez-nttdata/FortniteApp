@@ -48,7 +48,7 @@ class ScoreCollectionViewCell: UICollectionViewCell {
     }
     
     private func setup() {
-        backgroundColor = .lightGray
+        backgroundColor = .lightGray.withAlphaComponent(0.5)
         contentView.addSubview(titleLabel)
         contentView.addSubview(pointsLabel)
         

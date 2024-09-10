@@ -12,8 +12,10 @@ protocol TournamentDetailPresenterProtocol {
     var windowScoring: WindowScoring? { get }
     var windowEliminationValue: Int? { get }
     var windowResults: [WindowResultItem] { get }
+    var selectedWindow: EventWindow? { get }
     
     func handleViewDidLoad()
+    func handleWindowSelect(at index: Int)
 }
 
 final class TournamentDetailPresenter {
@@ -23,6 +25,7 @@ final class TournamentDetailPresenter {
     
     var event: Event
     var windowDetail: WindowDetailResponse?
+    var selectedWindow: EventWindow?
     
     init(event: Event) {
         self.event = event
@@ -30,18 +33,6 @@ final class TournamentDetailPresenter {
 }
 
 extension TournamentDetailPresenter: TournamentDetailPresenterProtocol {
-    func handleViewDidLoad() {
-        Task {
-            do {
-                windowDetail = try await interactor.getWindowDetail(windowId: event.currentOrNextWindowEvent?.windowId ?? event.windows.first!.windowId, page: 0) //TODO: handle page
-                view.setupEventDetails()
-                view.reloadWindowData()
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
     var windowScoring: WindowScoring? {
         return windowDetail?.session.rules.scoring.first { windowScoring in
             windowScoring.trackedStat == .placement
@@ -57,5 +48,30 @@ extension TournamentDetailPresenter: TournamentDetailPresenterProtocol {
     
     var windowResults: [WindowResultItem] {
         return windowDetail?.session.results ?? []
+    }
+    
+    func handleViewDidLoad() {
+        selectedWindow = event.currentOrNextWindowEvent ?? event.sortedWindows.first!
+        loadWindowDetail(windowId: selectedWindow!.windowId)
+    }
+    
+    func handleWindowSelect(at index: Int) {
+        let window = event.sortedWindows[index]
+        if window.windowId != selectedWindow!.windowId {
+            selectedWindow = window
+            loadWindowDetail(windowId: window.windowId)
+        }
+    }
+    
+    private func loadWindowDetail(windowId: String) {
+        Task {
+            do {
+                windowDetail = try await interactor.getWindowDetail(windowId: windowId, page: 0)
+                view.setupEventDetails()
+                view.reloadWindowData()
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
     }
 }
