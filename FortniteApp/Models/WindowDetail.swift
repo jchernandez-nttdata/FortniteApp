@@ -12,4 +12,5 @@ struct WindowDetail: Decodable {
     let beginTime: Date
     let endTime: Date
     let rules: WindowRules
+    let results: [WindowResultItem]
 }
