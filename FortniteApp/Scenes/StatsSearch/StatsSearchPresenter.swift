@@ -10,10 +10,11 @@ import Foundation
 protocol StatsSearchPresenterProtocol {
     var playerMatches: [PlayerSearchMatch] { get }
     var searchHistory: [PlayerSearchHistoryRecord] { get }
+    var isHistoryActive: Bool { get }
     
     func handleSearchQueryChanged(query: String)
-    func handleDidSelectPlayer(at index: Int, isHistory: Bool)
-    func handleViewDidLoad()
+    func handleDidSelectPlayer(at index: Int)
+    func loadSearchHistory()
     func handleDeleteHistoryRecord(at index: Int)
 }
 
@@ -25,6 +26,7 @@ final class StatsSearchPresenter {
     
     var playerMatches: [PlayerSearchMatch] = []
     var searchHistory: [PlayerSearchHistoryRecord] = []
+    var isHistoryActive: Bool = true
     
 }
 
@@ -32,40 +34,37 @@ extension StatsSearchPresenter: StatsSearchPresenterProtocol {
     
     func handleSearchQueryChanged(query: String) {
         view.hideError()
-
+        
         // show history if query is empty
         guard !query.isEmpty else {
             playerMatches = []
-            view.reloadSearchTableView()
-            toggleTablesVisibility(isHistoryHidden: false)
+            isHistoryActive = true
+            loadSearchHistory()
             return
         }
         
         view.showLoading()
-        toggleTablesVisibility(isHistoryHidden: true)
+        isHistoryActive = false
         Task {
             do {
                 playerMatches = try await interactor.searchPlayer(query: query)
                 if playerMatches.isEmpty {
                     view.dismissLoading()
-                    view.setSearchTableViewVisibility(isHidden: true)
                     view.showError(title: "No results", description: "Sorry, no results were found for your search. Please try searching for a different player.")
                     return
                 }
-                view.reloadSearchTableView()
+                view.reloadTable()
                 view.dismissLoading()
-                toggleTablesVisibility(isHistoryHidden: true)
             } catch {
-                view.setSearchTableViewVisibility(isHidden: true)
                 view.showError(title: "Something went wrong", description: "An error occurred while searching players from the server. Please try again later.")
                 view.dismissLoading()
             }
         }
     }
     
-    func handleDidSelectPlayer(at index: Int, isHistory: Bool) {
+    func handleDidSelectPlayer(at index: Int) {
         
-        if !isHistory {
+        if !isHistoryActive {
             let player = playerMatches[index]
             let historyRecord = PlayerSearchHistoryRecord(
                 name: player.matches.first?.value ?? "",
@@ -85,10 +84,10 @@ extension StatsSearchPresenter: StatsSearchPresenterProtocol {
         
     }
     
-    func handleViewDidLoad() {
+    func loadSearchHistory() {
         do {
             searchHistory = try interactor.getSearchHistory().reversed()
-            view.reloadHistoryTableView()
+            view.reloadTable()
         } catch {
             print("Failed to retreive history records \(error.localizedDescription)")
         }
@@ -99,18 +98,10 @@ extension StatsSearchPresenter: StatsSearchPresenterProtocol {
             let recordToDelete = searchHistory[index]
             try interactor.deleteSearchHistoryRecord(object: recordToDelete)
             searchHistory = try interactor.getSearchHistory().reversed()
-            view.reloadHistoryTableView()
+            view.reloadTable()
         } catch {
             print("Failed to delete history record \(error.localizedDescription)")
         }
     }
     
-    
-    private func toggleTablesVisibility(isHistoryHidden: Bool) {
-        if (!isHistoryHidden) {
-            handleViewDidLoad()
-        }
-        view.setHistoryTableViewVisibility(isHidden: isHistoryHidden)
-        view.setSearchTableViewVisibility(isHidden: !isHistoryHidden)
-    }
 }

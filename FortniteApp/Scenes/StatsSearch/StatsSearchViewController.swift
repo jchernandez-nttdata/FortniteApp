@@ -9,12 +9,9 @@ import UIKit
 import SkeletonView
 
 protocol StatsSearchView: AnyObject {
-    func reloadSearchTableView()
-    func reloadHistoryTableView()
+    func reloadTable()
     func showLoading()
     func dismissLoading()
-    func setSearchTableViewVisibility(isHidden: Bool)
-    func setHistoryTableViewVisibility(isHidden: Bool)
     func showError(title: String, description: String)
     func hideError()
 }
@@ -65,25 +62,14 @@ final class StatsSearchViewController: UIViewController {
         return textField
     }()
     
-    // TODO: use only one table view
-    private let searchTableView: UITableView = {
+    private let playerResultsTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .clear
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.sectionHeaderTopPadding = 0
         tableView.register(PlayerTableViewCell.self, forCellReuseIdentifier: PlayerTableViewCell.identifier)
         tableView.register(PlayerTableHeaderView.self, forHeaderFooterViewReuseIdentifier: PlayerTableHeaderView.identifier)
-        tableView.isHidden = true
-        return tableView
-    }()
-    
-    private let historyTableView: UITableView = {
-        let tableView = UITableView()
-        tableView.backgroundColor = .clear
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.sectionHeaderTopPadding = 0
-        tableView.register(PlayerTableViewCell.self, forCellReuseIdentifier: PlayerTableViewCell.identifier)
-        tableView.register(PlayerTableHeaderView.self, forHeaderFooterViewReuseIdentifier: PlayerTableHeaderView.identifier)
+        tableView.isSkeletonable = true
         return tableView
     }()
     
@@ -98,9 +84,7 @@ final class StatsSearchViewController: UIViewController {
         super.viewDidLoad()
         
         setup()
-        setupSkeleton()
-        
-        presenter.handleViewDidLoad()
+        presenter.loadSearchHistory()
     }
     
     private func setup() {
@@ -111,8 +95,7 @@ final class StatsSearchViewController: UIViewController {
         
         view.addSubview(statsDecriptionLabel)
         view.addSubview(searchTextField)
-        view.addSubview(searchTableView)
-        view.addSubview(historyTableView)
+        view.addSubview(playerResultsTableView)
         view.addSubview(errorView)
         
         // clear button init
@@ -124,10 +107,8 @@ final class StatsSearchViewController: UIViewController {
         
         searchTextField.addTarget(self, action: #selector(onSearchFieldChanged), for: .editingChanged)
         
-        searchTableView.delegate = self
-        searchTableView.dataSource = self
-        historyTableView.delegate = self
-        historyTableView.dataSource = self
+        playerResultsTableView.delegate = self
+        playerResultsTableView.dataSource = self
         
         NSLayoutConstraint.activate([
             statsDecriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -138,25 +119,16 @@ final class StatsSearchViewController: UIViewController {
             searchTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             searchTextField.topAnchor.constraint(equalTo: statsDecriptionLabel.bottomAnchor, constant: 10),
             
-            searchTableView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 20),
-            searchTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            searchTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            searchTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            
-            historyTableView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 20),
-            historyTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            historyTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            historyTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            playerResultsTableView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 20),
+            playerResultsTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            playerResultsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            playerResultsTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             
             errorView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor),
             errorView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             errorView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             errorView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
         ])
-    }
-    
-    private func setupSkeleton() {
-        searchTableView.isSkeletonable = true
     }
     
     @objc private func clearTextField() {
@@ -170,49 +142,38 @@ final class StatsSearchViewController: UIViewController {
             self?.presenter.handleSearchQueryChanged(query: textField.text ?? "")
         }
     }
-
+    
 }
 
 // MARK: - StatsSearchView
 extension StatsSearchViewController: StatsSearchView {
-    func reloadSearchTableView() {
+    func reloadTable() {
         DispatchQueue.main.async {
-            self.searchTableView.reloadData()
-        }
-    }
-    
-    func reloadHistoryTableView() {
-        DispatchQueue.main.async {
-            self.historyTableView.reloadData()
+            self.playerResultsTableView.reloadData()
         }
     }
     
     func showLoading() {
         DispatchQueue.main.async {
-            self.searchTableView.showAnimatedSkeleton(usingColor: .lightGray)
+            self.playerResultsTableView.showAnimatedSkeleton(usingColor: .lightGray)
         }
     }
     
     func dismissLoading() {
         DispatchQueue.main.async {
-            self.searchTableView.hideSkeleton()
+            self.playerResultsTableView.hideSkeleton()
         }
     }
     
     func setSearchTableViewVisibility(isHidden: Bool) {
         DispatchQueue.main.async {
-            self.searchTableView.isHidden = isHidden
-        }
-    }
-    
-    func setHistoryTableViewVisibility(isHidden: Bool) {
-        DispatchQueue.main.async {
-            self.historyTableView.isHidden = isHidden
+            self.playerResultsTableView.isHidden = isHidden
         }
     }
     
     func showError(title: String, description: String) {
         DispatchQueue.main.async {
+            self.playerResultsTableView.isHidden = true
             self.errorView.setup(title: title, description: description)
             self.errorView.isHidden = false
         }
@@ -221,6 +182,7 @@ extension StatsSearchViewController: StatsSearchView {
     func hideError() {
         DispatchQueue.main.async {
             self.errorView.isHidden = true
+            self.playerResultsTableView.isHidden = false
         }
     }
 }
@@ -228,25 +190,12 @@ extension StatsSearchViewController: StatsSearchView {
 // MARK: - Table view configuration
 extension StatsSearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch tableView {
-        case searchTableView:
-            return presenter.playerMatches.count
-        case historyTableView:
-            return presenter.searchHistory.count
-        default:
-            fatalError()
-        }
+        return presenter.isHistoryActive ? presenter.searchHistory.count : presenter.playerMatches.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PlayerTableViewCell.identifier, for: indexPath) as? PlayerTableViewCell
-        
-        switch tableView {
-        case searchTableView:
-            let player = presenter.playerMatches[indexPath.row]
-            cell?.setup(playerName: player.matches.first?.value ?? "", playerPlatform: player.matches.first?.platform ?? "", cellType: .search)
-            return cell ?? UITableViewCell()
-        case historyTableView:
+        if presenter.isHistoryActive {
             let player = presenter.searchHistory[indexPath.row]
             cell?.setup(
                 playerName: player.name,
@@ -256,44 +205,32 @@ extension StatsSearchViewController: UITableViewDelegate, UITableViewDataSource 
                     self.presenter.handleDeleteHistoryRecord(at: indexPath.row)
                 }
             )
-            return cell ?? UITableViewCell()
-        default:
-            fatalError()
+        } else {
+            let player = presenter.playerMatches[indexPath.row]
+            cell?.setup(playerName: player.matches.first?.value ?? "", playerPlatform: player.matches.first?.platform ?? "", cellType: .search)
         }
+        return cell ?? UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: PlayerTableHeaderView.identifier) as? PlayerTableHeaderView
-        switch tableView {
-        case searchTableView:
-            guard !presenter.playerMatches.isEmpty else {
-                return nil
-            }
-            view?.setup(title: "Results")
-            return view
-        case historyTableView:
-            guard !presenter.searchHistory.isEmpty else {
-                return nil
-            }
-            view?.setup(title: "Recent searches")
-            return view
-        default:
-            fatalError()
+        
+        let isDataAvailable = presenter.isHistoryActive ? !presenter.searchHistory.isEmpty : !presenter.playerMatches.isEmpty
+        
+        guard isDataAvailable else {
+            return nil
         }
+        
+        let title = presenter.isHistoryActive ? "Recent searches" : "Results"
+        view?.setup(title: title)
+        return view
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let isHistory = switch tableView {
-        case searchTableView:
-            false
-        case historyTableView:
-            true
-        default:
-            fatalError()
-        }
-        presenter.handleDidSelectPlayer(at: indexPath.row, isHistory: isHistory)
+        presenter.handleDidSelectPlayer(at: indexPath.row)
     }
-
+    
 }
 
 // MARK: - Skeleton configuration
