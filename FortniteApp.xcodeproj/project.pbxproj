@@ -76,7 +76,22 @@
 		35C82D7C2C82257E008D6047 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 35C82D7B2C82257E008D6047 /* Base */; };
 		35C82D8A2C822C0C008D6047 /* StatsSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C82D892C822C0C008D6047 /* StatsSearchViewController.swift */; };
 		35C82D8D2C822C27008D6047 /* TournamentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C82D8C2C822C27008D6047 /* TournamentsViewController.swift */; };
+		35CEE9FD2C911BA40096B2A6 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 350BF4402C8C12C50028891C /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		35CEE9FE2C911BA40096B2A6 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				35CEE9FD2C911BA40096B2A6 /* RealmSwift in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3500B2C02C8F977F00F6D7EE /* WindowDetailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowDetailResponse.swift; sourceTree = "<group>"; };
@@ -464,6 +479,7 @@
 				35C82D682C82257D008D6047 /* Sources */,
 				35C82D692C82257D008D6047 /* Frameworks */,
 				35C82D6A2C82257D008D6047 /* Resources */,
+				35CEE9FE2C911BA40096B2A6 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
