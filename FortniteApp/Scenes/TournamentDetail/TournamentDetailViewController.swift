@@ -13,6 +13,8 @@ protocol TournamentDetailView: AnyObject {
     func reloadWindowData()
     func showLoading()
     func dismissLoading()
+    func showSuccessDialog()
+    func showErrorDialog(message: String)
 }
 
 final class TournamentDetailViewController: UIViewController {
@@ -21,6 +23,14 @@ final class TournamentDetailViewController: UIViewController {
     private let backButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(systemName: "chevron.backward")?.withTintColor(.black, renderingMode: .alwaysOriginal), for: .normal)
+        button.configuration = .borderless()
+        button.configuration?.imagePadding = 10
+        return button
+    }()
+    
+    private let reminderButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(systemName: "alarm")?.withTintColor(.black, renderingMode: .alwaysOriginal), for: .normal)
         button.configuration = .borderless()
         button.configuration?.imagePadding = 10
         return button
@@ -121,8 +131,14 @@ final class TournamentDetailViewController: UIViewController {
         
         // back button config
         backButton.addTarget(self, action: #selector(popView), for: .touchUpInside)
-        let barButton = UIBarButtonItem(customView: backButton)
-        navigationItem.leftBarButtonItem = barButton
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
+        
+        // reminder button config
+        if presenter.event.currentOrNextWindowEvent != nil  {
+            reminderButton.addTarget(self, action: #selector(onReminderButtonTap), for: .touchUpInside)
+            navigationItem.rightBarButtonItem = UIBarButtonItem(customView: reminderButton)
+        }
+
         
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
@@ -189,6 +205,30 @@ final class TournamentDetailViewController: UIViewController {
     @objc private func popView() {
         presenter.handleBackButtonTap()
     }
+    
+    @objc private func onReminderButtonTap() {
+        showConfirmAddEvent()
+    }
+    
+    private func showConfirmAddEvent() {
+        let okAction = UIAlertAction(title: "Confirm", style: .default) { [weak self] _ in
+            self?.presenter.handleReminderButtonTap()
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        showAlertDialog(title: "Add event to calendar", message: "Are you sure you want to add the tournament: \(presenter.event.title) to your calendar?", actions: [okAction, cancelAction])
+    }
+    
+    private func showAlertDialog(title: String, message: String, actions: [UIAlertAction]) {
+        DispatchQueue.main.async {
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            actions.forEach { action in
+                alertController.addAction(action)
+            }
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
 }
 
 extension TournamentDetailViewController: TournamentDetailView {
@@ -222,6 +262,18 @@ extension TournamentDetailViewController: TournamentDetailView {
             self.scoringCollectionView.hideSkeleton()
             self.resultsTableView.hideSkeleton()
         }
+    }
+    
+    func showSuccessDialog() {
+        let okAction = UIAlertAction(title: "Ok", style: .default)
+                
+        showAlertDialog(title: "Success", message: "Tournament added to calendar.", actions: [okAction])
+    }
+    
+    func showErrorDialog(message: String) {
+        let okAction = UIAlertAction(title: "Ok", style: .default)
+                
+        showAlertDialog(title: "Something went wrong", message: message, actions: [okAction])
     }
 }
 

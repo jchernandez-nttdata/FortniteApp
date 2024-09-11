@@ -17,6 +17,7 @@ protocol TournamentDetailPresenterProtocol {
     func handleViewDidLoad()
     func handleWindowSelect(at index: Int)
     func handleBackButtonTap()
+    func handleReminderButtonTap()
 }
 
 final class TournamentDetailPresenter {
@@ -66,6 +67,22 @@ extension TournamentDetailPresenter: TournamentDetailPresenterProtocol {
     
     func handleBackButtonTap() {
         router.routePop()
+    }
+    
+    func handleReminderButtonTap() {
+        interactor.addEventReminder(event: event, window: event.currentOrNextWindowEvent!) { result in
+            switch result {
+            case .success(let success):
+                self.view.showSuccessDialog()
+            case .failure(let error):
+                switch error {
+                case .permissionDennied:
+                    self.view.showErrorDialog(message: "User dennied access to calendar")
+                case .saveError:
+                    self.view.showErrorDialog(message: "Save to calendar failed")
+                }
+            }
+        }
     }
     
     private func loadWindowDetail(windowId: String) {

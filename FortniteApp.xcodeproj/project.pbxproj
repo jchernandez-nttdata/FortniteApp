@@ -77,6 +77,7 @@
 		35C82D8A2C822C0C008D6047 /* StatsSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C82D892C822C0C008D6047 /* StatsSearchViewController.swift */; };
 		35C82D8D2C822C27008D6047 /* TournamentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C82D8C2C822C27008D6047 /* TournamentsViewController.swift */; };
 		35CEE9FD2C911BA40096B2A6 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 350BF4402C8C12C50028891C /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		35CEEA002C9236830096B2A6 /* CalendarError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CEE9FF2C9236830096B2A6 /* CalendarError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -163,6 +164,7 @@
 		35C82D7D2C82257E008D6047 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		35C82D892C822C0C008D6047 /* StatsSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsSearchViewController.swift; sourceTree = "<group>"; };
 		35C82D8C2C822C27008D6047 /* TournamentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentsViewController.swift; sourceTree = "<group>"; };
+		35CEE9FF2C9236830096B2A6 /* CalendarError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -313,6 +315,7 @@
 			children = (
 				3548FE162C8784A000057FE8 /* NetworkingError.swift */,
 				35C375CC2C8952C4004544FB /* ImageCacheError.swift */,
+				35CEE9FF2C9236830096B2A6 /* CalendarError.swift */,
 			);
 			path = Errors;
 			sourceTree = "<group>";
@@ -582,6 +585,7 @@
 				3548FE1B2C879D5800057FE8 /* StatsSearchInteractor.swift in Sources */,
 				350BF45C2C8EB02F0028891C /* ImageSectionView.swift in Sources */,
 				3500B2C12C8F977F00F6D7EE /* WindowDetailResponse.swift in Sources */,
+				35CEEA002C9236830096B2A6 /* CalendarError.swift in Sources */,
 				350BF4642C8EBA400028891C /* StatCard.swift in Sources */,
 				3548FE0A2C877D3400057FE8 /* NetworkingManager.swift in Sources */,
 				35C375BE2C88F7DE004544FB /* TournamentsRepository.swift in Sources */,
